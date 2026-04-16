@@ -232,8 +232,84 @@ This is the whole point. Agents are identities, not chat sessions. The filesyste
 
 ---
 
+## Side Scenarios
+
+Short vignettes of common operations outside the main feature flow.
+
+### Recruiting a non-templated agent
+
+A few weeks in, you need a **devops** agent to own CI config, deploys, and infra. None of the four templates (`ts-api`, `ts-web`, `swift-app`, `swift-package`) fit.
+
+```
+recruit devops "owns CI/CD config, deployment infra, observability"
+```
+
+The system doesn't match this to any template, so it runs a short interview:
+
+- *"Does devops own a repo or folder?"* — You answer: `.github/` and `infra/` across all repos.
+- *"What does devops depend on?"* — `None` (it reacts to changes, doesn't block anything)
+- *"What depends on devops?"* — Every product agent, indirectly (for deploy infra)
+- *"Skills beyond `project-system`?"* — None for now
+- *"Security rules for `guard` to check before stage?"* — No secrets in CI config, no exposed keys in Terraform state
+
+The system writes a lean AGENT.md with exactly those fields, seeds RELAY.md and INDEX.md, adds to ROSTER.md, notifies operator, and **auto-employs devops** so you can immediately start giving it work.
+
+No template was needed. The agent is first-class.
+
+### Refining an agent later
+
+Two months in, you realize `devops` should also own monitoring dashboards, not just CI/deploys. You don't re-recruit.
+
+```
+employ devops
+```
+
+Once devops is up, you just say: *"From now on you also own the Grafana dashboards in `infra/monitoring/`. Add a security rule for guard to check that no dashboard JSON contains hardcoded API tokens."*
+
+Devops updates its own AGENT.md — expands the Responsibilities list, adds the new path under Repo, adds the new security rule. Captures the change as a learning (*"ownership expanded to monitoring — previously was just CI"*). Retires as usual.
+
+The change persists across all future sessions. No command ceremony required.
+
+### Firing an agent
+
+You had a `designer` agent early on, but the team's designer left and the Figma MCP integration turned out to be wrong for your workflow. The agent has been idle for weeks. Time to fire it.
+
+Since you're not currently employed as designer, use the external form:
+
+```
+fire designer
+```
+
+The system auto-employs designer first (so the fire sequence runs as the agent), then runs the terminal shutdown:
+
+1. **Capture final learnings** — scribe writes anything worth preserving (including *"why this agent was fired"*)
+2. **Terminal RELAY.md** — full rewrite marked `STATUS: TERMINATED`, summarizing state at shutdown and what was left unfinished
+3. **Reassign work** — taskmaster moves all Doing tasks to Done with Outcome `Reassigned to operator — agent fired.`, creates matching Todos in operator's queue for every incomplete task
+4. **Handover message** — messenger sends a high-priority message to operator with the full handover
+5. **Archive inbox** — remaining messages moved to Archive
+6. **Lock** — ROSTER.md marks designer as `fired (2026-05-30)`, AGENT.md gets a banner at the top
+7. **Commit workspace**
+
+```
+[DESIGNER] terminated.
+
+Learnings: 12 captured (preserved)
+Relay: terminal handover written
+Tasks: 4 reassigned to operator
+Messages: handover sent to operator, 7 archived
+Session: final-shutdown--20260530-1600.md (final)
+Status: FIRED in ROSTER.md
+Workspace: committed and pushed
+
+Agent folder preserved at agents/designer/. Read-only from here.
+```
+
+You can no longer `employ designer` or send messages to them. The folder is kept forever — learnings, sessions, and archives remain searchable history.
+
+---
+
 ## Next Steps
 
 - Read [workspace/CLAUDE.md](workspace/CLAUDE.md) for the full protocol
 - Run `guide` (Claude Code) or `/guide` (Cursor) inside the system for a reference card
-- Recruit your own product agents with `recruit {callsign} {template}`
+- Recruit your own agents with `recruit {callsign} [purpose]`
