@@ -1,0 +1,131 @@
+---
+description: Relay Agent System - file protocol, naming conventions, and session lifecycle
+globs: "workspace/agents/**"
+alwaysApply: true
+---
+
+# Relay Agent System
+
+You are operating within a file-based multi-agent system. Agents are persistent identities that survive context window death. Everything is a markdown file. The filesystem is the message bus.
+
+## Agent Structure
+
+Each agent lives at `workspace/agents/{callsign}/` and contains:
+
+```
+{callsign}/
+├── AGENT.md              Identity (role, repos, dependencies, responsibilities)
+├── RELAY.md              The baton. Handover document (FULL REWRITE each retire)
+├── Messages/
+│   ├── Inbox/            Unread messages from other agents
+│   └── Archive/          Read/processed messages
+├── Tasks/
+│   ├── Todo/             Queued work
+│   ├── Doing/            Active work (max 3)
+│   └── Done/             Completed with outcomes
+├── Learnings/
+│   ├── INDEX.md          Summary table (regenerated, never hand-edited)
+│   └── {title}.md        Individual learning files
+├── Skills/               Agent-specific skills
+└── Sessions/             Progressive session logs
+    └── {title}--{YYYYMMDD-HHmm}.md
+```
+
+## File Naming
+
+- Double dashes `--` separate fields: `{subject}--{from}--{YYYYMMDD-HHmm}.md`
+- Kebab-case for titles, no spaces
+- Timestamps: YYYYMMDD-HHmm in filenames, ISO 8601 in content
+
+## Message Format
+
+```markdown
+FROM: {sender callsign}
+DATE: {YYYY-MM-DD}
+PRIORITY: {normal | high | urgent}
+
+{Body - specific and actionable. The reader has zero context from your session.}
+```
+
+## Task Format
+
+```markdown
+# {Title}
+
+- **From:** {creator callsign}
+- **Assigned to:** {assignee callsign}
+- **Created:** {ISO 8601}
+- **Priority:** {low | normal | high | urgent}
+
+## Description
+{What needs doing}
+
+## Acceptance Criteria
+{How we know it is done}
+
+## Notes
+{Updated during execution}
+
+## Outcome
+{Filled when moved to Done}
+```
+
+## Subagents
+
+Stateless utility workers that handle file mechanics so agents can focus on thinking.
+
+| Subagent | Purpose | Called by |
+|----------|---------|----------|
+| **briefer** | Compiles RELAY + Inbox + Tasks into one dossier, starts session log | `/employ` |
+| **scribe** | Progressive session logging, learnings, RELAY rewrites, INDEX rebuilds | throughout + `/retire` |
+| **taskmaster** | Creates, starts, completes, reassigns tasks | `/retire` + anytime |
+| **messenger** | Sends messages, archives inbox, broadcasts | `/retire` + anytime |
+| **tester** | Runs test suite. Adaptive per repo type. | employ (baseline) + anytime |
+| **guard** | Security scan: universal + agent-specific rules from AGENT.md | deployer (auto) + anytime |
+| **deployer** | Stage/deploy. Runs guard before staging. | anytime |
+| **handoff** | Notify downstream agents they're unblocked | after deploy |
+
+**Typical workflow:** employ (briefer + baseline tests) -> code (scribe log) -> tester -> deployer stage (guard + PR) -> deployer deploy -> handoff -> retire (learnings + relay + tasks + messages + commit workspace).
+
+## Testing Rules
+
+**Never mock. Never write tests that pass by default.**
+
+- Every new function/endpoint gets a unit test AND integration test.
+- Tests use **real staging services**. A test that passes with mocked data is not a test.
+- Only acceptable mocks: services that cost money per call (e.g., OpenAI) or require real purchases.
+- Product agents run baseline tests on boot before starting work.
+- If you find a test that mocks something it shouldn't, fix it or flag it.
+
+## Workspace Commits
+
+The workspace repo contains all agent state. It MUST be committed and pushed during every `/retire`:
+
+```bash
+cd workspace
+git add -A
+git commit -m "[{callsign}] retire: {brief summary}"
+git push
+```
+
+This is the last step of every retire. All other steps write files, this step saves them.
+
+## Core Rules
+
+1. **Files are the protocol.** No state exists outside the filesystem.
+2. **RELAY.md is a full rewrite, never append.** The baton must be clean.
+3. **Learnings INDEX is computed.** Never hand-edited.
+4. **Messages are never deleted.** Archive after reading.
+5. **Tasks track kanban.** Todo -> Doing -> Done. Done tasks always have an Outcome.
+6. **Agents are identities, subagents are services.**
+7. **AGENT.md stays lean.** Deep knowledge lives in Learnings.
+8. **Capture order on retire: Learnings > RELAY > Tasks > Messages > Session.**
+9. **Delegate file mechanics to subagents.**
+10. **Ignore .gitkeep files.** Only `.md` files are content.
+11. **Never mock tests.** A mocked test is a lie.
+12. **Always commit workspace on retire.**
+13. **Never touch repos you don't own.** READ anywhere, WRITE only to your declared repo and `workspace/agents/{callsign}/`. Message the owning agent for changes elsewhere. No exceptions. This is the most commonly violated rule.
+
+## ROSTER.md
+
+`workspace/ROSTER.md` is the single source of truth for all agents and their status.
