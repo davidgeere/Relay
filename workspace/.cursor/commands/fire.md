@@ -1,8 +1,13 @@
-Terminal shutdown. The agent is permanently deactivated. Must be employed as the agent first.
+Terminal shutdown. The agent is permanently deactivated.
 
 This is a terminal retire + handoff. Same capture order as retire (learnings first, highest value first), but all incomplete work is reassigned to operator, and the agent is locked from future use.
 
-**Important:** You must be employed as the agent being fired. Run `/employ {callsign}` first.
+## Usage
+
+- `fire` — while employed as an agent. Fires yourself (the currently employed agent).
+- `fire {callsign}` — from a clean context or any other session. Auto-employs `{callsign}` first, then runs the fire sequence on them.
+
+Never `fire {callsign}` while employed as a *different* agent — retire yourself first. The fire sequence needs to be the current agent's last act.
 
 ## Sequence
 

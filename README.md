@@ -49,20 +49,37 @@ cd workspace && ./setup.sh
 
 ### 10 Commands
 
+Commands fall into three categories based on when you use them.
+
+**Boot / switch / terminate** (use from a clean context, not while employed as another agent):
+
 | Command | Purpose |
 |---------|---------|
 | `employ {callsign}` | Boot an agent. You ARE them for the session. |
+| `recruit {callsign} [purpose]` | Create a new agent. Interviews for gaps, auto-employs on completion. Templates optional. |
+| `fire {callsign}` | Terminal shutdown of another agent. Auto-employs them first, then runs the fire sequence. |
+
+**In-session** (while employed as an agent — operates on the current agent):
+
+| Command | Purpose |
+|---------|---------|
 | `retire` | Shutdown. Capture learnings, relay, tasks, messages. Commit workspace. |
 | `debrief` | Mid-session checkpoint. Save progress, keep working. |
+| `fire` | Fire yourself. Terminal shutdown of the currently employed agent. |
+
+**System-wide** (safe anytime, inside or outside an employment):
+
+| Command | Purpose |
+|---------|---------|
 | `status` | Pipeline view. What's active, blocked, ready. |
 | `mail` | Scan all inboxes. Or `mail {callsign}` for one agent. |
 | `health` | Quick pulse. Stale relays, stuck tasks, unread mail. |
 | `audit` | Deep sweep. Agent health, doc quality, learnings gaps. |
-| `recruit {callsign} [purpose]` | Create a new agent. Interviews for gaps, auto-employs on completion. Templates optional. |
-| `fire` | Terminal shutdown. Permanently deactivate an agent, hand work to operator. |
 | `guide` | Full system reference. |
 
 > In Cursor, prefix with `/` (e.g. `/employ api`). In Claude Code, just type the command (e.g. `employ api`).
+>
+> If you're employed as one agent and want to switch to another, `retire` first, then `employ` the next one. Otherwise the current session won't be captured properly.
 
 ### 8 Subagents
 

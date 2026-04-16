@@ -56,6 +56,12 @@ Each agent lives at `agents/{callsign}/` and contains:
 
 ## Commands
 
+Commands fall into three categories:
+
+- **Boot / switch / terminate** — `employ`, `recruit`, `fire {callsign}`. Use from a clean context, not while employed as another agent. If you're currently employed, `retire` first.
+- **In-session** — `retire`, `debrief`, `fire` (no callsign). Operate on the currently employed agent.
+- **System-wide** — `status`, `mail`, `health`, `audit`, `guide`. Safe anytime.
+
 ### employ {callsign}
 
 Boot an agent. You ARE this agent for the rest of the session.
@@ -109,8 +115,12 @@ Deep sweep: agent health, doc quality, learnings gaps.
 ### recruit {callsign} [purpose]
 Create a new agent. Purpose is optional — if omitted or ambiguous, the system interviews you for gaps (role, repo, dependencies, security rules, skills). Templates (`ts-api`, `ts-web`, `swift-app`, `swift-package`) are optional starting points, offered when the answers match. After creation, the agent is automatically employed so you can keep working. To change an agent later, employ it and tell it what to change — don't re-recruit.
 
-### fire
-Terminal shutdown. Must be employed as the agent first. Captures final learnings, writes terminal RELAY.md, reassigns all incomplete work to operator, sends handover message, locks the agent in ROSTER.md. Agent folder is preserved (read-only history) but the agent cannot be employed, messaged, or assigned tasks.
+### fire [callsign]
+Terminal shutdown. Two forms:
+- `fire` while employed as an agent → fires yourself.
+- `fire {callsign}` from a clean context → auto-employs `{callsign}` first, then fires them.
+
+Captures final learnings, writes terminal RELAY.md, reassigns all incomplete work to operator, sends handover message, locks the agent in ROSTER.md. Agent folder is preserved (read-only history) but the agent cannot be employed, messaged, or assigned tasks.
 
 ### guide
 System reference. Shows all commands, subagents, agents, and how they fit together.

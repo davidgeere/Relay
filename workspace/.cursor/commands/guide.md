@@ -12,18 +12,24 @@ System reference. Shows all commands, subagents, agents, and how they fit togeth
 
 --- YOUR COMMANDS ---
 
-  /employ {callsign}    Boot an agent. You ARE them for the session.
-  /retire               Shutdown. Capture learnings, relay, tasks, messages.
-  /debrief              Mid-session checkpoint. Save progress, keep working.
-  /status               Pipeline view. What's active, blocked, ready.
-  /mail                 Scan all inboxes. Or: /mail {callsign} for one agent.
-  /health               Quick pulse. Stale relays, stuck tasks, unread mail.
-  /audit                Deep sweep. Agent health, doc quality, learnings gaps.
-  /recruit {callsign} [purpose]
-                        Create a new agent. Interviews for gaps,
-                        auto-employs on completion. Templates optional.
-  /fire                 Terminal shutdown. Permanently deactivate an agent.
-  /guide                You're looking at it.
+  Boot / switch / terminate (use from a clean context):
+    /employ {callsign}    Boot an agent. You ARE them for the session.
+    /recruit {callsign} [purpose]
+                          Create a new agent. Interviews for gaps,
+                          auto-employs on completion. Templates optional.
+    /fire {callsign}      Terminal shutdown of another agent (auto-employs first).
+
+  In-session (while employed):
+    /retire               Shutdown. Capture learnings, relay, tasks, messages.
+    /debrief              Mid-session checkpoint. Save progress, keep working.
+    /fire                 Fire yourself. Terminal shutdown of current agent.
+
+  System-wide (safe anytime):
+    /status               Pipeline view. What's active, blocked, ready.
+    /mail                 Scan all inboxes. Or: /mail {callsign} for one agent.
+    /health               Quick pulse. Stale relays, stuck tasks, unread mail.
+    /audit                Deep sweep. Agent health, doc quality, learnings gaps.
+    /guide                You're looking at it.
 
 --- SUBAGENTS (called by agents during sessions) ---
 
