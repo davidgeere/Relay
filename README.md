@@ -16,6 +16,12 @@ employ api           → agent boots, reads relay + inbox + tasks, reports for d
 retire               → learnings captured, relay rewritten, tasks updated, workspace committed
 ```
 
+## 👉 See It In Action
+
+**[Read the Walkthrough →](WALKTHROUGH.md)**
+
+A day-by-day story of shipping a real feature through the full agent pipeline — from spec to deploy. Shows what every agent does, what files get written, and how the baton passes between sessions. **Read this first.** It's the fastest way to understand what Relay feels like in practice.
+
 ## Quick Start
 
 ```bash
@@ -29,8 +35,6 @@ cd workspace && ./setup.sh
 # Type: employ operator (Claude Code) or /employ operator (Cursor)
 # Type: guide (Claude Code) or /guide (Cursor) for the full reference
 ```
-
-> **New to Relay?** Read the [Walkthrough](WALKTHROUGH.md) — a day-by-day story of shipping a feature through the system.
 
 ## What's Included
 
