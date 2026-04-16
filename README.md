@@ -41,7 +41,7 @@ cd workspace && ./setup.sh
 | **librarian** | Owns documentation. Sweeps learnings, runs audits, keeps docs accurate. |
 | **reviewer** | Black-box product review. Enforced ignorance - no source code access. Tests like a user. |
 
-### 9 Commands
+### 10 Commands
 
 | Command | Purpose |
 |---------|---------|
@@ -53,6 +53,7 @@ cd workspace && ./setup.sh
 | `health` | Quick pulse. Stale relays, stuck tasks, unread mail. |
 | `audit` | Deep sweep. Agent health, doc quality, learnings gaps. |
 | `recruit {callsign}` | Create a new product agent from a template. |
+| `fire` | Terminal shutdown. Permanently deactivate an agent, hand work to operator. |
 | `guide` | Full system reference. |
 
 > In Cursor, prefix with `/` (e.g. `/employ api`). In Claude Code, just type the command (e.g. `employ api`).

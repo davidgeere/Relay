@@ -20,6 +20,7 @@ System reference. Shows all commands, subagents, agents, and how they fit togeth
   /health               Quick pulse. Stale relays, stuck tasks, unread mail.
   /audit                Deep sweep. Agent health, doc quality, learnings gaps.
   /recruit {callsign}   Create a new agent from a template.
+  /fire                 Terminal shutdown. Permanently deactivate an agent.
   /guide                You're looking at it.
 
 --- SUBAGENTS (called by agents during sessions) ---
