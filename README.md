@@ -20,7 +20,7 @@ retire               → learnings captured, relay rewritten, tasks updated, wor
 
 ```bash
 # Clone into your project
-git clone https://github.com/davidgeere/relay.git workspace
+git clone https://github.com/davidgeere/Relay.git workspace
 
 # Run setup (creates agent folders, symlinks)
 cd workspace && ./setup.sh
@@ -29,6 +29,8 @@ cd workspace && ./setup.sh
 # Type: employ operator (Claude Code) or /employ operator (Cursor)
 # Type: guide (Claude Code) or /guide (Cursor) for the full reference
 ```
+
+> **New to Relay?** Read the [Walkthrough](WALKTHROUGH.md) — a day-by-day story of shipping a feature through the system.
 
 ## What's Included
 
