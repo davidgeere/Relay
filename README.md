@@ -11,9 +11,9 @@ AI coding assistants forget everything when the context window resets. Every new
 Agents are folders. Each agent has a persistent identity (AGENT.md), a handover document (RELAY.md - the baton), an inbox, a task board, learnings, and session logs. When you employ an agent, it reads all of this and picks up where the last session left off. When you retire it, everything is captured to files. The files live in git. Git never forgets.
 
 ```
-/employ api          → agent boots, reads relay + inbox + tasks, reports for duty
+employ api           → agent boots, reads relay + inbox + tasks, reports for duty
 ...work happens...   → progressive session logging, test runs, deploys
-/retire              → learnings captured, relay rewritten, tasks updated, workspace committed
+retire               → learnings captured, relay rewritten, tasks updated, workspace committed
 ```
 
 ## Quick Start
@@ -25,9 +25,9 @@ git clone https://github.com/davidgeere/relay.git workspace
 # Run setup (creates agent folders, symlinks)
 cd workspace && ./setup.sh
 
-# Open your project root in Cursor
-# Type /guide to see the full system reference
-# Type /employ operator to start your first session
+# Open your project root in Cursor or Claude Code
+# Type: employ operator (Claude Code) or /employ operator (Cursor)
+# Type: guide (Claude Code) or /guide (Cursor) for the full reference
 ```
 
 ## What's Included
@@ -45,15 +45,17 @@ cd workspace && ./setup.sh
 
 | Command | Purpose |
 |---------|---------|
-| `/employ {callsign}` | Boot an agent. You ARE them for the session. |
-| `/retire` | Shutdown. Capture learnings, relay, tasks, messages. Commit workspace. |
-| `/debrief` | Mid-session checkpoint. Save progress, keep working. |
-| `/status` | Pipeline view. What's active, blocked, ready. |
-| `/mail` | Scan all inboxes. Or `/mail {callsign}` for one agent. |
-| `/health` | Quick pulse. Stale relays, stuck tasks, unread mail. |
-| `/audit` | Deep sweep. Agent health, doc quality, learnings gaps. |
-| `/recruit {callsign}` | Create a new product agent from a template. |
-| `/guide` | Full system reference. |
+| `employ {callsign}` | Boot an agent. You ARE them for the session. |
+| `retire` | Shutdown. Capture learnings, relay, tasks, messages. Commit workspace. |
+| `debrief` | Mid-session checkpoint. Save progress, keep working. |
+| `status` | Pipeline view. What's active, blocked, ready. |
+| `mail` | Scan all inboxes. Or `mail {callsign}` for one agent. |
+| `health` | Quick pulse. Stale relays, stuck tasks, unread mail. |
+| `audit` | Deep sweep. Agent health, doc quality, learnings gaps. |
+| `recruit {callsign}` | Create a new product agent from a template. |
+| `guide` | Full system reference. |
+
+> In Cursor, prefix with `/` (e.g. `/employ api`). In Claude Code, just type the command (e.g. `employ api`).
 
 ### 8 Subagents
 
@@ -63,7 +65,7 @@ Stateless workers that handle file mechanics so agents can focus on thinking:
 
 ### Templates
 
-Add product agents with `/recruit`:
+Add product agents with `recruit`:
 - `ts-api` - TypeScript API agent
 - `ts-web` - TypeScript web app agent (Next.js, SvelteKit, etc.)
 - `swift-app` - Swift/SwiftUI iOS app agent

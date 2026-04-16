@@ -17,4 +17,4 @@
 |----------|------|------|--------|
 | | | | |
 
-> Use `/recruit {callsign} {template}` to add product agents. Templates: `ts-api`, `ts-web`, `swift-app`, `swift-package`.
+> Use `recruit {callsign} {template}` to add product agents. Templates: `ts-api`, `ts-web`, `swift-app`, `swift-package`.

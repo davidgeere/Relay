@@ -135,7 +135,7 @@ Subagents are called by agents during sessions. Agents think, subagents write.
 ## Typical Agent Session
 
 ```
-/employ {callsign}
+employ {callsign}
   | briefer compiles dossier + starts session log
   | tester runs baseline (product agents only)
   -> agent reports for duty
@@ -149,7 +149,7 @@ more code...
 verify on staging...
   | deployer deploy (promote to production)
   | handoff (notify downstream agents)
-/retire
+retire
   | scribe captures learnings + rewrites relay
   | scribe finalizes session log
   | taskmaster moves tasks to Done, creates follow-ups
