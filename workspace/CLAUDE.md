@@ -106,8 +106,8 @@ Quick pulse: deployments, stale relays, unread mail, stuck tasks.
 ### audit
 Deep sweep: agent health, doc quality, learnings gaps.
 
-### recruit {callsign} {template}
-Create a new agent from a template. Templates: `ts-api`, `ts-web`, `swift-app`, `swift-package`.
+### recruit {callsign} [purpose]
+Create a new agent. Purpose is optional — if omitted or ambiguous, the system interviews you for gaps (role, repo, dependencies, security rules, skills). Templates (`ts-api`, `ts-web`, `swift-app`, `swift-package`) are optional starting points, offered when the answers match. After creation, the agent is automatically employed so you can keep working. To change an agent later, employ it and tell it what to change — don't re-recruit.
 
 ### fire
 Terminal shutdown. Must be employed as the agent first. Captures final learnings, writes terminal RELAY.md, reassigns all incomplete work to operator, sends handover message, locks the agent in ROSTER.md. Agent folder is preserved (read-only history) but the agent cannot be employed, messaged, or assigned tasks.

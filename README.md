@@ -58,7 +58,7 @@ cd workspace && ./setup.sh
 | `mail` | Scan all inboxes. Or `mail {callsign}` for one agent. |
 | `health` | Quick pulse. Stale relays, stuck tasks, unread mail. |
 | `audit` | Deep sweep. Agent health, doc quality, learnings gaps. |
-| `recruit {callsign}` | Create a new product agent from a template. |
+| `recruit {callsign} [purpose]` | Create a new agent. Interviews for gaps, auto-employs on completion. Templates optional. |
 | `fire` | Terminal shutdown. Permanently deactivate an agent, hand work to operator. |
 | `guide` | Full system reference. |
 
@@ -70,13 +70,16 @@ Stateless workers that handle file mechanics so agents can focus on thinking:
 
 **briefer** (compiles session dossier), **scribe** (progressive logging + learnings), **taskmaster** (task lifecycle), **messenger** (inter-agent messaging), **tester** (test suite runner), **guard** (security scanner), **deployer** (stage/deploy with guard gate), **handoff** (notify downstream agents)
 
-### Templates
+### Templates (optional starting points)
 
-Add product agents with `recruit`:
+Use `recruit {callsign} [purpose]` and the system will interview you for gaps. If your agent looks like one of these, it'll offer the template as a starting point — but templates aren't required. Agents without a matching template are first-class.
+
 - `ts-api` - TypeScript API agent
 - `ts-web` - TypeScript web app agent (Next.js, SvelteKit, etc.)
 - `swift-app` - Swift/SwiftUI iOS app agent
 - `swift-package` - Swift package/SDK agent
+
+**Refining an agent later:** Don't re-recruit. Just `employ {callsign}` and tell the agent what else it owns or what rules to follow. It updates its own AGENT.md.
 
 ## Workspace Structure
 

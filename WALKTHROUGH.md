@@ -40,9 +40,11 @@ Ready to plan.
 
 You tell operator: *"We need api and app agents. API is a TypeScript Fastify service, app is a Next.js frontend."*
 
-Operator runs `recruit api ts-api` and `recruit app ts-web`. Each creates an agent folder with the template, updates `ROSTER.md`, and sends a welcome message to the new agent's inbox.
+Operator runs `recruit api "central bookmark API, TypeScript Fastify"`. The system recognizes the purpose matches the `ts-api` template and offers it as a starting point. Operator accepts. It asks one clarifying question: *"What does api depend on? (e.g. Database)"* Operator answers. The agent folder is created, ROSTER updated, welcome message sent to operator's inbox, and **api is immediately employed** so you could start working as api right now if you wanted.
 
-You retire operator:
+Operator does the same for `recruit app "Next.js frontend for bookmarks"` — matches `ts-web` template. api is listed as its dependency. Auto-employed.
+
+You switch back to operator and retire it:
 
 ```
 retire

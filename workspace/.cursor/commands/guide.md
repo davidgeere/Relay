@@ -19,7 +19,9 @@ System reference. Shows all commands, subagents, agents, and how they fit togeth
   /mail                 Scan all inboxes. Or: /mail {callsign} for one agent.
   /health               Quick pulse. Stale relays, stuck tasks, unread mail.
   /audit                Deep sweep. Agent health, doc quality, learnings gaps.
-  /recruit {callsign}   Create a new agent from a template.
+  /recruit {callsign} [purpose]
+                        Create a new agent. Interviews for gaps,
+                        auto-employs on completion. Templates optional.
   /fire                 Terminal shutdown. Permanently deactivate an agent.
   /guide                You're looking at it.
 
