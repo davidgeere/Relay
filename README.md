@@ -102,7 +102,6 @@ The enforcement is the same either way: each agent's AGENT.md declares what it o
 
 - **Cursor** - commands, rules, subagents via `.cursor/`
 - **Claude Code** - instructions via `CLAUDE.md`, same agent system
-- **Cowork** - same as Claude Code, folder-based access
 - **Any future tool** - the protocol is files, not tool features
 
 ## Core Rules

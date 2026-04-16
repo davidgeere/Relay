@@ -114,7 +114,7 @@ System reference. Shows all commands, subagents, agents, and how they fit togeth
     workspace/ROSTER.md             All agents and their status.
     workspace/agents/{callsign}/    Agent folders.
     workspace/.cursor/              Rules, commands, skills, subagents.
-    workspace/CLAUDE.md             Claude Code / Cowork instructions.
+    workspace/CLAUDE.md             Claude Code instructions.
     workspace/templates/            Agent templates for /recruit.
 
 --- CORE RULES ---
