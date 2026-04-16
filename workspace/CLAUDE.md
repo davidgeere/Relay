@@ -180,6 +180,10 @@ retire
 
 ## Messaging
 
+Messages are **agent-to-agent**. There's no user-facing `message` command — messaging happens organically inside a session. Employed as operator, you just say *"message api about X"* and the LLM invokes the `messenger` subagent to write the file. To read inboxes without being employed, use `mail` (read-only).
+
+If you want to send something as the human, employ an agent first — usually `operator` (the coordinator). Messages always have a callsign in the `FROM` header.
+
 Create `agents/{recipient}/Messages/Inbox/{subject}--{sender}--{YYYYMMDD-HHmm}.md`:
 ```markdown
 FROM: {sender}

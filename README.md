@@ -80,6 +80,8 @@ Commands fall into three categories based on when you use them.
 > In Cursor, prefix with `/` (e.g. `/employ api`). In Claude Code, just type the command (e.g. `employ api`).
 >
 > If you're employed as one agent and want to switch to another, `retire` first, then `employ` the next one. Otherwise the current session won't be captured properly.
+>
+> **No `message` command — messaging is organic.** Inside a session you just say *"message api about X"* and your agent sends it via the `messenger` subagent. Messages are always agent-to-agent; the `FROM` header is a callsign. To send as the human, employ an agent first (usually `operator`). Use `mail` to read inboxes without being employed.
 
 ### 8 Subagents
 
