@@ -14,6 +14,7 @@ your-project/
 │   ├── agents/          (agent folders)
 │   ├── templates/       (agent templates for recruiting)
 │   ├── ROSTER.md        (single source of truth for all agents)
+│   ├── PRINCIPAL.md     (the human's preferences, style, recurring context)
 │   ├── CLAUDE.md        (this file)
 │   └── .mcp.json        (MCP config)
 ├── {product-repo}/      (product repos or folders)
@@ -51,6 +52,7 @@ Each agent lives at `agents/{callsign}/` and contains:
 10. **Never mock tests.** Tests hit real staging services. A mocked test is a lie.
 11. **Always commit workspace on retire.** `git add -A && git commit -m "[{callsign}] retire: {summary}" && git push`
 12. **Never touch repos you don't own.** Your AGENT.md declares your repo. READ anywhere, WRITE only to your repo and `agents/{callsign}/`. Message the owning agent for changes elsewhere. No exceptions.
+13. **Read PRINCIPAL.md at every employ.** The human's preferences and style apply globally. Update it when corrected on standing preferences — never let the same lesson be taught twice.
 
 ---
 
@@ -68,13 +70,14 @@ Boot an agent. You ARE this agent for the rest of the session.
 
 1. Run `git pull` to ensure latest workspace state.
 2. Read `agents/{callsign}/AGENT.md` - internalize role, repos, dependencies.
-3. Load skills from `.cursor/skills/{name}/SKILL.md`.
-4. Check for stale `agents/{callsign}/Sessions/_active.md`. If exists, rename to `Sessions/unfinished--{timestamp}.md`.
-5. Read `agents/{callsign}/RELAY.md` in full.
-6. List `agents/{callsign}/Tasks/Doing/` and `agents/{callsign}/Tasks/Todo/`. Read each `.md` file.
-7. List `agents/{callsign}/Messages/Inbox/`. Read each `.md` file.
-8. Create `agents/{callsign}/Sessions/_active.md` to start the session log.
-9. **Run baseline tests** (product agents only).
+3. Read `workspace/PRINCIPAL.md` - internalize the human's preferences, style, conventions, and recurring context. Apply globally.
+4. Load skills from `.cursor/skills/{name}/SKILL.md`.
+5. Check for stale `agents/{callsign}/Sessions/_active.md`. If exists, rename to `Sessions/unfinished--{timestamp}.md`.
+6. Read `agents/{callsign}/RELAY.md` in full.
+7. List `agents/{callsign}/Tasks/Doing/` and `agents/{callsign}/Tasks/Todo/`. Read each `.md` file.
+8. List `agents/{callsign}/Messages/Inbox/`. Read each `.md` file.
+9. Create `agents/{callsign}/Sessions/_active.md` to start the session log.
+10. **Run baseline tests** (product agents only).
 
 Report:
 ```
@@ -177,6 +180,31 @@ retire
 | **reviewer** | Black-box product review. Enforced ignorance (no source code). Tests like a user, not a developer. |
 
 ---
+
+## Principal
+
+`workspace/PRINCIPAL.md` describes the human directing the system. It captures:
+- Communication style preferences ("be direct, no preamble")
+- Code style and library preferences ("Tailwind not CSS-in-JS")
+- Project context ("side project, optimize for speed")
+- Pet peeves and recurring context
+
+Every agent reads this file at `employ`, right after their own `AGENT.md`. Apply it as a global filter on every decision.
+
+The principal is **not an agent**. They have no inbox, no callsign, no `Tasks/`. They direct the system from outside it.
+
+When the principal corrects you on a *standing* preference (not a one-off), append a line to `PRINCIPAL.md` and capture the change as a learning. The next agent — and your future self — should never need to be told the same thing twice.
+
+## Skill Promotion
+
+Learnings start agent-specific. When a pattern crosses agents (3+ agents have similar learnings on the same topic) or is referenced repeatedly across sessions, the librarian flags it during `audit` as a candidate for promotion to a shared skill at `workspace/.cursor/skills/{name}/SKILL.md`.
+
+The principal approves. On approval:
+1. Librarian distills the cluster into a `SKILL.md`.
+2. Each source learning gets a pointer in INDEX: `→ Promoted to skill: {name}`.
+3. Affected agents get the skill added to their AGENT.md `Skills to Load`.
+
+This is how the system grows new shared knowledge organically. Source learnings stay put — the skill summarizes the pattern.
 
 ## Messaging
 

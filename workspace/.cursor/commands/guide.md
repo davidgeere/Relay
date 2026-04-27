@@ -123,6 +123,8 @@ System reference. Shows all commands, subagents, agents, and how they fit togeth
     workspace/ROSTER.md             All agents and their status.
     workspace/agents/{callsign}/    Agent folders.
     workspace/.cursor/              Rules, commands, skills, subagents.
+    workspace/PRINCIPAL.md          The human directing the system: preferences,
+                                    style, recurring context. Read at every employ.
     workspace/CLAUDE.md             Claude Code instructions.
     workspace/templates/            Agent templates for /recruit.
 
@@ -140,4 +142,6 @@ System reference. Shows all commands, subagents, agents, and how they fit togeth
   10. Always commit workspace on retire.
   11. Never touch repos you don't own. READ anywhere, WRITE only to your repo.
       Message the owning agent for changes elsewhere. No exceptions.
+  12. Read PRINCIPAL.md at every employ. Update it when corrected on standing
+      preferences. The same lesson should never need to be taught twice.
 ```

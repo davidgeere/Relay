@@ -270,6 +270,52 @@ Devops updates its own AGENT.md — expands the Responsibilities list, adds the 
 
 The change persists across all future sessions. No command ceremony required.
 
+### Teaching the system your preferences (PRINCIPAL.md)
+
+You're employed as `app`. The agent generates a commit message with an emoji prefix:
+
+> `✨ feat: add favorites star toggle`
+
+You correct it: *"No emojis in commits."*
+
+App does three things at once:
+1. Edits the commit message.
+2. Appends a line to `workspace/PRINCIPAL.md` under "Code Style Preferences": *"No emojis in commits."*
+3. Writes a learning at `agents/app/Learnings/principal-no-emojis-in-commits.md` capturing the correction.
+
+Next time you employ *any* agent — say `api` for the next sprint — they read PRINCIPAL.md at boot and already know. You never have to say it again.
+
+This is the highest-leverage feedback loop in Relay: every correction once, never twice.
+
+### Letting the system grow shared skills (audit-driven promotion)
+
+A few weeks in, you run:
+
+```
+audit
+```
+
+Librarian boots, sweeps every agent's Learnings, and reports candidates for skill promotion:
+
+```
+PROMOTE: staging-deploy-cache-bust
+  Source learnings:
+    - agents/api/Learnings/staging-cache-stale-after-deploy.md
+    - agents/app/Learnings/staging-cache-stale-after-deploy.md
+    - agents/devops/Learnings/cdn-purge-required-on-deploy.md
+  Proposed skill: workspace/.cursor/skills/staging-cache-bust/SKILL.md
+  Rationale: Three agents independently learned the same pattern about
+             stale CDN cache after staging deploys. Promoting consolidates
+             the knowledge and ensures future agents inherit it.
+```
+
+You approve. Librarian:
+1. Writes the new `SKILL.md` distilling the pattern (when it happens, how to detect it, how to fix it).
+2. Adds `→ Promoted to skill: staging-cache-bust` to each source learning's INDEX entry.
+3. Updates AGENT.md `Skills to Load` for `api`, `app`, and `devops`.
+
+From now on, every session of those agents loads the skill at boot. Knowledge that started as three separate "ouch, that hurt" moments is now a first-class shared pattern. The system literally grew a new skill from lived experience.
+
 ### Firing an agent
 
 You had a `designer` agent early on, but the team's designer left and the Figma MCP integration turned out to be wrong for your workflow. The agent has been idle for weeks. Time to fire it.

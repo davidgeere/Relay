@@ -74,9 +74,37 @@ for agent in $SYSTEM_AGENTS; do
   create_agent "$agent"
 done
 
-# Create .relay directory for hooks and daemon state
-mkdir -p .relay/hooks
-mkdir -p .relay/terminals
+# Seed PRINCIPAL.md if it doesn't exist (template ships with the repo;
+# this is a no-op for the canonical install but useful if PRINCIPAL.md
+# was deleted or this is a fresh workspace folder)
+if [ ! -f "PRINCIPAL.md" ]; then
+  cat > "PRINCIPAL.md" << 'EOF'
+# Principal
+
+> The human directing this Relay system. Every agent reads this file at `employ` time, right after their own `AGENT.md`. Update organically — when the principal corrects an agent ("no, I don't want emojis in commits"), the agent adds a line here and captures the change as a learning.
+
+## Identity
+- **Name:** {your name}
+- **Time zone:** {e.g. America/Vancouver}
+- **Working hours:** {e.g. 9am–6pm weekdays}
+
+## Communication Style
+- {e.g. Direct, no preamble}
+
+## Code Style Preferences
+- {e.g. yarn over npm}
+
+## Project Context
+- {side project / production / client work}
+
+## Pet Peeves
+- {things you don't want agents doing}
+
+## Recurring Context
+- {anything that comes up often enough that re-explaining wastes time}
+EOF
+  echo "  ✓ PRINCIPAL.md seeded (edit it before your first session)"
+fi
 
 # Create documentation directory (if at project root level)
 if [ ! -d "../documentation" ]; then
@@ -131,8 +159,10 @@ echo "============================================"
 echo "  Relay is ready."
 echo ""
 echo "  System agents: architect, operator, librarian, reviewer"
-echo "  Add product agents with: /recruit {callsign} {template}"
-echo "  Available templates: ts-api, ts-web, swift-app, swift-package"
+echo "  Add agents with: /recruit {callsign} [purpose]    (Cursor)"
+echo "                or  recruit {callsign} [purpose]    (Claude Code)"
+echo "  Optional templates: ts-api, ts-web, swift-app, swift-package"
 echo ""
-echo "  Open your project root in Cursor and type /guide"
+echo "  Edit workspace/PRINCIPAL.md to set your preferences."
+echo "  Then open your project root in Cursor or Claude Code and run guide."
 echo "============================================"

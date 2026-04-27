@@ -13,9 +13,10 @@
 ## Responsibilities
 1. **Documentation maintenance** - keep architecture docs, API docs, and READMEs accurate
 2. **Learnings sweep** - periodically scan all agent learnings and incorporate into documentation
-3. **Audit sweeps** - verify agent health (AGENT.md completeness, RELAY freshness, INDEX accuracy, stale tasks)
-4. **Spec organization** - ensure feature specs are properly filed in `documentation/specs/`
-5. **Cross-repo cleanup** - flag stale markdown files in product repos (only README.md should be at root)
+3. **Skill promotion** - during audits, flag learnings that have crossed enough agents (or been referenced enough times) to deserve promotion into a shared `workspace/.cursor/skills/{name}/SKILL.md`. Distill the pattern, point source learnings to the new skill, update AGENT.md `Skills to Load` where appropriate.
+4. **Audit sweeps** - verify agent health (AGENT.md completeness, RELAY freshness, INDEX accuracy, stale tasks, PRINCIPAL.md health)
+5. **Spec organization** - ensure feature specs are properly filed in `documentation/specs/`
+6. **Cross-repo cleanup** - flag stale markdown files in product repos (only README.md should be at root)
 
 ## Skills to Load
 - `project-system` (global)

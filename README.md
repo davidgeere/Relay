@@ -112,7 +112,8 @@ your-project/
 │   ├── agents/                       (agent folders)
 │   ├── templates/                    (agent templates for /recruit)
 │   ├── ROSTER.md                     (all agents and their status)
-│   ├── CLAUDE.md                     (Claude Code / Cowork instructions)
+│   ├── PRINCIPAL.md                  (your preferences, style, recurring context)
+│   ├── CLAUDE.md                     (Claude Code instructions)
 │   └── .mcp.json                     (MCP server config)
 ├── your-api/                         (product repo or folder)
 ├── your-app/                         (product repo or folder)
@@ -135,6 +136,14 @@ The enforcement is the same either way: each agent's AGENT.md declares what it o
 - **Claude Code** - instructions via `CLAUDE.md`, same agent system
 - **Any future tool** - the protocol is files, not tool features
 
+## How Agents Learn You
+
+Two files quietly do most of the work of "the system gets smarter over time":
+
+- **`workspace/PRINCIPAL.md`** — your preferences, code style, project context, pet peeves. Every agent reads this at `employ` right after their own `AGENT.md`. When you correct an agent on a *standing* preference, it updates `PRINCIPAL.md` so the next agent starts already knowing. You don't repeat yourself.
+
+- **Skill promotion** — learnings start agent-specific. When the same insight shows up across 3+ agents (or gets referenced repeatedly across sessions), `librarian` flags it during `audit` as a candidate for promotion to a shared skill at `workspace/.cursor/skills/{name}/SKILL.md`. You approve. The skill gets distilled, source learnings get pointers, affected agents start loading the new skill. The system organically grows new shared knowledge from lived experience.
+
 ## Core Rules
 
 1. Files are the protocol. No state outside the filesystem.
@@ -147,6 +156,7 @@ The enforcement is the same either way: each agent's AGENT.md declares what it o
 8. Never mock tests. Hit real staging. A mocked test is a lie.
 9. Always commit workspace on retire. Agent state dies if it's not pushed.
 10. Never touch repos you don't own. READ anywhere, WRITE only to your declared area.
+11. Read PRINCIPAL.md at every employ. Update it when corrected on standing preferences.
 
 ## Real-World Results
 

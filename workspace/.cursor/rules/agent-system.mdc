@@ -129,3 +129,13 @@ This is the last step of every retire. All other steps write files, this step sa
 ## ROSTER.md
 
 `workspace/ROSTER.md` is the single source of truth for all agents and their status.
+
+## PRINCIPAL.md
+
+`workspace/PRINCIPAL.md` describes the human directing the system — preferences, style, conventions, recurring context. Every agent reads it at `employ` right after their own `AGENT.md`. Apply globally. When the principal corrects you on a *standing* preference, append a line and capture the change as a learning.
+
+The principal is not an agent: no inbox, no callsign, no tasks.
+
+## Skill Promotion
+
+When learnings cluster across agents (3+ on the same topic) or get referenced repeatedly, the `librarian` agent flags them during `audit` for promotion into a shared skill at `workspace/.cursor/skills/{name}/SKILL.md`. On principal approval, the skill is written, source learnings get pointers, and affected agents add the skill to their `Skills to Load`. Source learnings remain in place as origin history.
