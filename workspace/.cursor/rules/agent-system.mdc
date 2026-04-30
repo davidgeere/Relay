@@ -142,6 +142,12 @@ The principal is the human directing the system. Two artifacts:
 
 **Receiving as principal:** Any agent can message principal or assign them a task via the normal messenger/taskmaster flow. `mail` always includes principal's inbox; `mail principal` reads it in full.
 
+**Filing principal messages:** When you tell the principal something they may want to act on later, also file it as a message to principal via messenger. This keeps the principal's dashboard accurate when they are juggling several projects and not actively reading the chat where you said it. File: questions, recommendations needing approval, status updates worth tracking, blockers, finished work the principal should know about. Don't file: routine confirmations, conversational filler, or direct replies to a question they just asked.
+
+## Project
+
+`workspace/PROJECT.md` carries project-specific context: surfaces, repos, build order, MCPs, conventions. Generic Relay protocol lives in `CLAUDE.md` and is identical across every Relay project. PROJECT.md is the per-project overlay. Every agent reads it at `employ` right after `PRINCIPAL.md`. Apply alongside PRINCIPAL as a global filter. When project structure changes (new surface, repo rename, new convention), update PROJECT.md and capture the change as a learning.
+
 ## Skill Promotion
 
 When learnings cluster across agents (3+ on the same topic) or get referenced repeatedly, the `librarian` agent flags them during `audit` for promotion into a shared skill at `workspace/.cursor/skills/{name}/SKILL.md`. On principal approval, the skill is written, source learnings get pointers, and affected agents add the skill to their `Skills to Load`. Source learnings remain in place as origin history.

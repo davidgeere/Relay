@@ -15,6 +15,7 @@ your-project/
 │   ├── templates/       (agent templates for recruiting)
 │   ├── ROSTER.md        (single source of truth for all agents)
 │   ├── PRINCIPAL.md     (the human's preferences, style, recurring context)
+│   ├── PROJECT.md       (project-specific context: surfaces, repos, conventions)
 │   ├── CLAUDE.md        (this file)
 │   └── .mcp.json        (MCP config)
 ├── {product-repo}/      (product repos or folders)
@@ -53,6 +54,8 @@ Each agent lives at `agents/{callsign}/` and contains:
 11. **Always commit workspace on retire.** `git add -A && git commit -m "[{callsign}] retire: {summary}" && git push`
 12. **Never touch repos you don't own.** Your AGENT.md declares your repo. READ anywhere, WRITE only to your repo and `agents/{callsign}/`. Message the owning agent for changes elsewhere. No exceptions.
 13. **Read PRINCIPAL.md at every employ.** The human's preferences and style apply globally. Update it when corrected on standing preferences — never let the same lesson be taught twice.
+14. **Read PROJECT.md at every employ.** Project-specific context (surfaces, repos, build order, MCPs, conventions) lives there. CLAUDE.md is the generic framework; PROJECT.md is what makes this project this project.
+15. **File principal messages for actionable content.** When you tell the human something they may want to act on later (a recommendation needing approval, a question, a heads-up, a status update worth tracking, a blocker, finished work worth knowing about), also write it as a message to principal via messenger. Routine confirmations, conversational filler, and direct replies to questions they just asked do not need to be filed.
 
 ---
 
@@ -71,13 +74,14 @@ Boot an agent. You ARE this agent for the rest of the session.
 1. Run `git pull` to ensure latest workspace state.
 2. Read `agents/{callsign}/AGENT.md` - internalize role, repos, dependencies.
 3. Read `workspace/PRINCIPAL.md` - internalize the human's preferences, style, conventions, and recurring context. Apply globally.
-4. Load skills from `.cursor/skills/{name}/SKILL.md`.
-5. Check for stale `agents/{callsign}/Sessions/_active.md`. If exists, rename to `Sessions/unfinished--{timestamp}.md`.
-6. Read `agents/{callsign}/RELAY.md` in full.
-7. List `agents/{callsign}/Tasks/Doing/` and `agents/{callsign}/Tasks/Todo/`. Read each `.md` file.
-8. List `agents/{callsign}/Messages/Inbox/`. Read each `.md` file.
-9. Create `agents/{callsign}/Sessions/_active.md` to start the session log.
-10. **Run baseline tests** (product agents only).
+4. Read `workspace/PROJECT.md` - internalize project-specific context: surfaces, repos, build order, MCPs, conventions. Apply globally alongside PRINCIPAL.
+5. Load skills from `.cursor/skills/{name}/SKILL.md`.
+6. Check for stale `agents/{callsign}/Sessions/_active.md`. If exists, rename to `Sessions/unfinished--{timestamp}.md`.
+7. Read `agents/{callsign}/RELAY.md` in full.
+8. List `agents/{callsign}/Tasks/Doing/` and `agents/{callsign}/Tasks/Todo/`. Read each `.md` file.
+9. List `agents/{callsign}/Messages/Inbox/`. Read each `.md` file.
+10. Create `agents/{callsign}/Sessions/_active.md` to start the session log.
+11. **Run baseline tests** (product agents only).
 
 Report:
 ```
@@ -217,6 +221,13 @@ Any agent can message principal or assign them a task by writing to `agents/prin
 - `mail` always includes principal's inbox
 - `mail principal` reads the full inbox
 - The principal works through their tasks manually (move Todo → Doing → Done with Outcome filled when complete)
+
+**Filing principal messages:**
+When you tell the principal something they may want to act on later, also file it as a message to principal via messenger. This keeps the principal's dashboard accurate when they are juggling several projects and not actively reading the chat where you said it. File: questions, recommendations needing approval, status updates worth tracking, blockers, finished work the principal should know about. Don't file: routine confirmations, conversational filler, or direct replies to a question they just asked.
+
+## Project
+
+Project-specific context lives in `workspace/PROJECT.md`. CLAUDE.md is the generic Relay framework, identical across every Relay project. PROJECT.md is the per-project overlay: surfaces, repos, build order, MCPs, conventions. Every agent reads it at `employ` right after `PRINCIPAL.md`. When the project changes structurally — a new surface ships, a repo gets renamed, a convention gets adopted — update PROJECT.md and capture the change as a learning so the next agent picks it up automatically.
 
 ## Skill Promotion
 
