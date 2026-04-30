@@ -11,7 +11,7 @@ your-project/
 ├── CLAUDE.md -> workspace/CLAUDE.md (symlink: this file)
 ├── workspace/           (git repo: orchestration config + agent state)
 │   ├── .cursor/         (rules, commands, skills, subagents)
-│   ├── agents/          (agent folders)
+│   ├── agents/          (agent folders + agents/principal/ for comms)
 │   ├── templates/       (agent templates for recruiting)
 │   ├── ROSTER.md        (single source of truth for all agents)
 │   ├── PRINCIPAL.md     (the human's preferences, style, recurring context)
@@ -183,7 +183,10 @@ retire
 
 ## Principal
 
-`workspace/PRINCIPAL.md` describes the human directing the system. It captures:
+The principal is the human directing the system. Two distinct artifacts:
+
+### PRINCIPAL.md — preferences
+`workspace/PRINCIPAL.md` captures:
 - Communication style preferences ("be direct, no preamble")
 - Code style and library preferences ("Tailwind not CSS-in-JS")
 - Project context ("side project, optimize for speed")
@@ -191,9 +194,29 @@ retire
 
 Every agent reads this file at `employ`, right after their own `AGENT.md`. Apply it as a global filter on every decision.
 
-The principal is **not an agent**. They have no inbox, no callsign, no `Tasks/`. They direct the system from outside it.
-
 When the principal corrects you on a *standing* preference (not a one-off), append a line to `PRINCIPAL.md` and capture the change as a learning. The next agent — and your future self — should never need to be told the same thing twice.
+
+### agents/principal/ — comms surface
+The principal can send and receive messages and tasks like any participant in the system. Their folder is **a minimal subset** of an agent folder:
+
+```
+workspace/agents/principal/
+├── Messages/{Inbox,Archive}/
+└── Tasks/{Todo,Doing,Done}/
+```
+
+No `AGENT.md`, no `RELAY.md`, no `Sessions/`, no `Learnings/`. The principal does not get employed.
+
+**Sending as principal:**
+When Claude is **not employed as any agent**, Claude is the principal's hands. Messages and tasks created in this state get `FROM: principal`. No special command — the absence of an employ context is the signal. The principal types intent ("send api a high-priority message about migration timing") and Claude writes the file with `FROM: principal`.
+
+**Receiving as principal:**
+Any agent can message principal or assign them a task by writing to `agents/principal/Messages/Inbox/` or `agents/principal/Tasks/Todo/` via messenger/taskmaster — same as any other recipient.
+
+**Reading principal's mail:**
+- `mail` always includes principal's inbox
+- `mail principal` reads the full inbox
+- The principal works through their tasks manually (move Todo → Doing → Done with Outcome filled when complete)
 
 ## Skill Promotion
 

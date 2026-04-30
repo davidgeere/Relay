@@ -74,6 +74,19 @@ for agent in $SYSTEM_AGENTS; do
   create_agent "$agent"
 done
 
+# Create principal comms folder (minimal — no AGENT.md, no RELAY.md, no Sessions/Learnings)
+echo ""
+echo "Creating principal comms folder..."
+mkdir -p agents/principal/Messages/Inbox
+mkdir -p agents/principal/Messages/Archive
+mkdir -p agents/principal/Tasks/Todo
+mkdir -p agents/principal/Tasks/Doing
+mkdir -p agents/principal/Tasks/Done
+for dir in Messages/Inbox Messages/Archive Tasks/Todo Tasks/Doing Tasks/Done; do
+  touch "agents/principal/$dir/.gitkeep"
+done
+echo "  ✓ principal (Messages + Tasks only — no employ)"
+
 # Seed PRINCIPAL.md if it doesn't exist (template ships with the repo;
 # this is a no-op for the canonical install but useful if PRINCIPAL.md
 # was deleted or this is a fresh workspace folder)

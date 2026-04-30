@@ -130,11 +130,17 @@ This is the last step of every retire. All other steps write files, this step sa
 
 `workspace/ROSTER.md` is the single source of truth for all agents and their status.
 
-## PRINCIPAL.md
+## Principal
 
-`workspace/PRINCIPAL.md` describes the human directing the system — preferences, style, conventions, recurring context. Every agent reads it at `employ` right after their own `AGENT.md`. Apply globally. When the principal corrects you on a *standing* preference, append a line and capture the change as a learning.
+The principal is the human directing the system. Two artifacts:
 
-The principal is not an agent: no inbox, no callsign, no tasks.
+**`workspace/PRINCIPAL.md`** — preferences, style, conventions, recurring context. Every agent reads it at `employ` right after their own `AGENT.md`. Apply globally. When the principal corrects you on a *standing* preference, append a line and capture the change as a learning.
+
+**`workspace/agents/principal/`** — comms surface. `Messages/{Inbox,Archive}/` and `Tasks/{Todo,Doing,Done}/`. No `AGENT.md`, no `RELAY.md`, no `Sessions/`, no `Learnings/`. The principal does not get employed.
+
+**Sending as principal:** When Claude is not employed as any agent, Claude is the principal's hands. Messages and tasks created in this state get `FROM: principal`. The absence of an employ context is the signal — no special command.
+
+**Receiving as principal:** Any agent can message principal or assign them a task via the normal messenger/taskmaster flow. `mail` always includes principal's inbox; `mail principal` reads it in full.
 
 ## Skill Promotion
 

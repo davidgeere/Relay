@@ -2,6 +2,12 @@
 
 > Single source of truth for all agents in this project.
 
+## Principal
+
+| Callsign | Role | Status |
+|----------|------|--------|
+| principal | The human directing the system. Sends/receives messages and tasks. Never employed. | Active |
+
 ## System Agents
 
 | Callsign | Role | Status |
