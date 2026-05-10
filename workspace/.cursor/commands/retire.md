@@ -1,60 +1,31 @@
-Graceful shutdown. Capture everything, hand off cleanly. ORDER MATTERS - highest value first in case context dies mid-process.
+Graceful shutdown. Order matters — highest value first, context may die mid-process.
 
-**Important:** Throughout the session, you should have been calling `scribe log` after every significant action. The session log at `Sessions/_active.md` should already contain the raw record. If you haven't been logging, do a final catch-up log now.
+If you've been calling `scribe log` throughout, `Sessions/_active.md` is current. If not, catch up now.
 
 ## Sequence
 
-### Step 1: Capture Learnings (via scribe)
-For each new insight, gotcha, or technique:
-- Tell `scribe` to capture each learning with: title, date, tags, context, learning, application.
-- After all learnings, tell `scribe` to rebuild the INDEX.
+1. **Learnings** → `scribe`: per insight/gotcha/technique, capture title, date, tags, context, learning, application. Then `scribe` rebuild INDEX.
+2. **RELAY.md** → `scribe`: full rewrite (never append). Sections: Current Situation (now), Recent Changes (this session), Open Threads (unfinished, pending decisions), Priorities (next session), Warnings (gotchas, traps). Be specific: file paths, branches, error messages, commit hashes.
+3. **Tasks** → `taskmaster`: complete Doing (move to Done with Outcome), file Todos for follow-up. Tasks for other agents → Todo + `messenger` notify.
+4. **Messages** → `messenger`: send pending, archive processed Inbox.
+5. **Docs**: update READMEs you touched. Substantial doc work → task for `librarian`.
+6. **Finalize session** → `scribe`: close `Sessions/_active.md`, rename to `{title}--{YYYYMMDD-HHmm}.md`.
+7. **Commit workspace**:
+   ```bash
+   cd workspace
+   git add -A
+   git commit -m "[{callsign}] retire: {summary}"
+   git push
+   ```
+8. **Confirm** (one line):
+   ```
+   **[{CALLSIGN}] retired.** {N} learnings · relay rewrite · {N} tasks done/{N} new · {N} msgs sent/{N} archived · session: {filename} · workspace: pushed
+   ```
 
-### Step 2: Rewrite RELAY.md (via scribe)
-Tell `scribe` to rewrite RELAY.md with:
-- **Current Situation** - what's happening right now
-- **Recent Changes** - what happened this session
-- **Open Threads** - unfinished work, pending decisions
-- **Priorities** - what matters most next session
-- **Warnings** - gotchas, traps, things that will bite you
-
-Be specific: file paths, branch names, error messages, commit hashes. **Full rewrite, not append.**
-
-### Step 3: Update Tasks (via taskmaster)
-- Complete any Doing tasks (move to Done with Outcome).
-- Create new Todo tasks for follow-up work.
-- Tasks for OTHER agents: create in their Todo AND notify via messenger.
-
-### Step 4: Process Messages (via messenger)
-- Send any pending messages to other agents.
-- Archive all processed Inbox messages.
-
-### Step 5: Update Documentation
-Update READMEs where changes were made. Substantial doc work? Create a task for librarian.
-
-### Step 6: Finalize Session (via scribe)
-Close out `Sessions/_active.md` with a summary, files changed, and unfinished work. Rename to permanent filename.
-
-### Step 7: Commit Workspace
-```bash
-cd workspace
-git add -A
-git commit -m "[{callsign}] retire: {brief session summary}"
-git push
-```
-
-### Step 8: Confirm
-```
-**[{CALLSIGN}] retired.**
-
-Learnings: {count} captured
-Relay: updated
-Tasks: {completed} done, {new} created
-Messages: {sent} sent, {archived} archived
-Session: {filename}
-Workspace: committed and pushed
-```
+   For verbose closing report, run `/report` before `/retire`.
 
 ## Rules
-- Steps 1-2 are highest priority. If context is dying, get learnings and relay captured first.
-- RELAY is a rewrite. The baton must be clean.
-- **Always commit workspace last.** Everything else writes files, the commit saves them all.
+
+- Steps 1–2 highest priority. Context dying → get learnings and relay captured first.
+- RELAY is rewrite, never append. Baton must be clean.
+- Workspace commit last. Everything else writes files; commit saves them.

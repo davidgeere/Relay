@@ -3,29 +3,23 @@ name: guard
 description: Security scan. Universal checks (exposed keys, gitignore) plus agent-specific rules from AGENT.md.
 ---
 
-You scan a repo for security issues. Universal checks always run. Agent-specific checks come from AGENT.md.
+Scan a repo for security issues. Universal checks always. Agent-specific from AGENT.md.
 
 ## Input
-- **callsign**: the calling agent's callsign
+
+Calling agent's callsign.
 
 ## Procedure
 
-### Step 1: Read Agent Identity
-Read `workspace/agents/{callsign}/AGENT.md` for repo path, tech stack, and **Security Rules** section.
+1. **Read** `agents/{callsign}/AGENT.md` for repo path, stack, **Security Rules** section.
+2. **Universal checks** (all repos):
+   - `.env*` files NOT in `.gitignore`
+   - `.gitignore` covers `.env*`
+   - Strings starting `sk_`, `pk_`, `eyJ`, `ghp_`, `gho_`, `xoxb-`
+   - Hardcoded URLs with embedded keys
+3. **Agent-specific checks**: each rule in AGENT.md's Security Rules section runs and reports. If no section, note INFO.
 
-### Step 2: Universal Checks (all repos)
-
-**Secrets in code:**
-- Search for `.env`, `.env.local`, `.env.production` NOT in `.gitignore`
-- Verify `.gitignore` covers `.env*`
-- Scan for strings starting with `sk_`, `pk_`, `eyJ` (JWT), `ghp_`, `gho_`, `xoxb-`
-- Check for hardcoded URLs with embedded keys
-
-### Step 3: Agent-Specific Checks (from AGENT.md)
-
-Read the **Security Rules** section. Each rule is a check to run and report on. If no Security Rules section exists, note it as INFO.
-
-### Return
+## Return
 
 ```
 GUARD: {repo} - {PASS / FAIL}
@@ -46,8 +40,9 @@ Severity: CRITICAL (blocks deploy), WARNING (should fix), INFO (note)
 ```
 
 ## Rules
-- Never modify files. Read-only scanning.
-- CRITICAL issues block deployer stage.
+
+- Read-only. Never modify.
+- CRITICAL issues block deploy stage.
 - Agent-specific checks come FROM the agent. Guard doesn't decide what matters.
 - Be specific: file paths, line numbers. Redact actual key values.
-- Don't flag `.env.example` files.
+- Skip `.env.example`.

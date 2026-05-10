@@ -24,6 +24,35 @@ Newest first.
 
 ---
 
+## [v2.0.0 — 2026-05-10] Caveman pass: framework-wide terseness rewrite
+
+**Changed:** every canonical framework file (29 files; 768 insertions, 1,185 deletions; net −417 lines, ~35% reduction).
+
+- All `.cursor/commands/*.md` (10 files): rewritten in caveman style. Dense numbered procedures, imperative dispatch, no meta-explanation.
+- All `.cursor/agents/*.md` (6 files): same. Identity + operations + return-line. No defensive scaffolding.
+- `.cursor/rules/agent-system.mdc`: consolidated. Core rules + file formats only. Defers to CLAUDE.md for the rest.
+- `.cursor/skills/project-system/SKILL.md`: terse template.
+- `CLAUDE.md`, `PRINCIPAL.md`, `PROJECT.md`, `ROSTER.md`, `README.md`: caveman-styled, structure preserved.
+- `templates/{swift-app,swift-package,ts-api,ts-web}/AGENT.md`: light pass for consistency.
+
+**Behavioral changes (not just cosmetic)**:
+- `/retire` confirmation collapsed from 6-line stats block to one bolded line. Verbose closing → run `/report` first.
+- **New `/report` command**: standalone verbose state-of-session report. Read-only.
+- `/employ` now checks `CHANGELOG.md` at boot and reads recent entries if newer than agent's last RELAY timestamp — so framework drift is surfaced automatically.
+- Stronger imperative dispatch to subagents (`Tasks → taskmaster: ...`) replaces softer "tell taskmaster to..." phrasing.
+- Confirmation lines for `/employ`, `/retire`, `/debrief`, `/recruit`, `/fire` all bolded for consistency.
+
+**Deleted (orphans, zero references)**:
+- `.cursor/agents/deployer.md` — never invoked. Product agents have their own deploy patterns (e.g. Haptix's `distributor`).
+- `.cursor/agents/handoff.md` — never invoked. Direct `messenger` calls handle downstream notifications.
+
+**Propagation:** Applied same day to all 6 product projects (AppAttest, Brixels, Haptix, HealthApp, Hune, Samaritan) plus Okavango (which got the v1 framework earlier today and is upgraded in the same pass). Marshal's symlinked slash commands at `~/Developer/Management/.claude/commands/` inherit automatically.
+
+**Notes:**
+- Tagged `v2.0.0` in Relay canonical.
+- Broadcast messages sent to each project's operator inbox so agents are aware at next employ.
+- Zero information loss verified: section descriptions, rules, file formats, and command logic preserved verbatim where they change behavior. Defensive prose, examples-that-repeat-the-rule, and throat-clearing dropped.
+
 ## [2026-05-10] Bold confirmation lines on employ/retire reports
 
 **Changed:** `.cursor/commands/employ.md`, `.cursor/commands/retire.md`

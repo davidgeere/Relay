@@ -1,21 +1,19 @@
-Mid-session checkpoint. Save progress without ending the session.
+Mid-session checkpoint. Save progress, keep working.
 
 ## Sequence
-1. **Catch-up log** - if behind on `scribe log`, do a catch-up now.
-2. **Learnings** - tell `scribe` to capture any new learnings. Rebuild INDEX.
-3. **RELAY.md** - compose current state, tell `scribe` to do a full rewrite.
-4. **Tasks** - tell `taskmaster` to update statuses.
-5. **Commit workspace** - `cd workspace && git add -A && git commit -m "[{callsign}] debrief: {focus}" && git push`
-6. **Continue working.**
 
-## Report
+1. **Catch-up log** → `scribe`: if behind on logging, catch up now.
+2. **Learnings** → `scribe`: capture new ones, rebuild INDEX.
+3. **RELAY.md** → `scribe`: full rewrite of current state.
+4. **Tasks** → `taskmaster`: update statuses.
+5. **Commit workspace**:
+   ```bash
+   cd workspace && git add -A && git commit -m "[{callsign}] debrief: {focus}" && git push
+   ```
+6. Continue working.
+
+## Confirm (one line)
+
 ```
-[{CALLSIGN}] debriefed.
-
-Learnings: {count} captured
-Relay: updated
-Tasks: {status changes}
-Workspace: committed
-
-Continuing with: {what you're working on next}
+**[{CALLSIGN}] debriefed.** {N} learnings · relay rewrite · {status changes} · workspace pushed · continuing: {next}
 ```

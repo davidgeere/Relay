@@ -1,14 +1,16 @@
-Scan inboxes for unread messages. Includes Principal's inbox alongside agents.
+Scan inboxes for unread. Principal included alongside agents.
 
 ## Usage
-- `/mail` - scan all inboxes (agents + Principal)
-- `/mail {callsign}` - read one inbox's full contents (use `principal` for the principal's inbox)
 
-## Procedure (all inboxes)
-1. Read `workspace/ROSTER.md` for the agent list.
-2. **Always include Principal first.** List `.md` files in `workspace/agents/principal/Messages/Inbox/` (ignore `.gitkeep`).
-3. For each agent, list `.md` files in `workspace/agents/{callsign}/Messages/Inbox/` (ignore `.gitkeep`).
-4. Extract FROM, DATE, PRIORITY from each message header.
+- `/mail` — all inboxes (agents + principal)
+- `/mail {callsign}` — one inbox in full (use `principal` for principal's inbox)
+
+## All inboxes
+
+1. Read `ROSTER.md`.
+2. **Principal first.** List `.md` in `agents/principal/Messages/Inbox/`.
+3. Per agent, list `.md` in `agents/{callsign}/Messages/Inbox/`.
+4. Skip `.gitkeep`. Extract FROM, DATE, PRIORITY from headers.
 
 ```
 MAIL SUMMARY:
@@ -19,6 +21,7 @@ MAIL SUMMARY:
   [{callsign}] empty
 ```
 
-## Procedure (single inbox)
-1. List `.md` files in `workspace/agents/{target}/Messages/Inbox/` (target is callsign or `principal`).
-2. Read each message in full. Sort by priority (urgent first).
+## Single inbox
+
+1. List `.md` in `agents/{target}/Messages/Inbox/` (target = callsign or `principal`).
+2. Read each in full. Sort by priority (urgent first).

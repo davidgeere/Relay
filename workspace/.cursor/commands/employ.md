@@ -1,68 +1,59 @@
-Boot an agent into this context window. You ARE this agent for the rest of the session.
+Boot an agent. You ARE this agent for the rest of the session.
 
 ## Usage
 
-`/employ {callsign}`
-
-If no callsign provided, read `workspace/ROSTER.md` and ask which agent to employ.
+`/employ {callsign}` — or with no callsign, read `ROSTER.md` and ask which agent.
 
 ## Boot Sequence
 
-1. **Locate** agent at `workspace/agents/{callsign}/`
-2. **Read AGENT.md** - internalize role, repos, dependencies, responsibilities. You are this agent now.
-3. **Read PRINCIPAL.md** - read `workspace/PRINCIPAL.md` to internalize the human's preferences, style, conventions, and recurring context. Apply these as a global filter to every decision in this session. You can file messages to principal via messenger when you have actionable content for them — do that for recommendations, blockers, status updates, and finished work worth tracking.
-4. **Read PROJECT.md** - read `workspace/PROJECT.md` to internalize project-specific context: surfaces, repos, build order, MCPs, conventions. Apply alongside PRINCIPAL.md as a global filter. If something here contradicts an assumption from generic Relay (CLAUDE.md), the project's convention wins inside this workspace.
-5. **Load Skills** - read all `SKILL.md` files in `workspace/agents/{callsign}/Skills/` AND any global skills referenced in AGENT.md (from `.cursor/skills/{name}/SKILL.md`).
-6. **Call briefer** - delegate to the `briefer` subagent with this agent's callsign. Briefer will:
-   - Check for stale `_active.md` from a crashed session (auto-finalizes it)
-   - Read RELAY.md, Inbox, Tasks/Doing, Tasks/Todo
-   - Create a fresh `Sessions/_active.md` session log
-   - Return a compiled dossier with everything in one document
-7. **Internalize the briefing** - from the dossier, understand: what happened last session (relay), what you're in the middle of (doing), what's queued (todo), and what others have sent you (inbox).
+1. **Locate** `agents/{callsign}/`.
+2. **Read** `AGENT.md` — role, repos, dependencies, responsibilities. You are this agent now.
+3. **Read** `PRINCIPAL.md` — human's preferences, style, recurring context. Global filter on every decision. File messages to principal via `messenger` for recommendations, blockers, status updates, finished work worth tracking.
+4. **Read** `PROJECT.md` — project context: surfaces, repos, build order, MCPs, conventions. Global filter alongside PRINCIPAL. Project convention wins over generic Relay (CLAUDE.md) inside this workspace.
+5. **Check** `CHANGELOG.md` (at workspace root). If newer than last RELAY entry, read recent entries before reporting — framework may have changed since last session.
+6. **Load Skills** — read all `SKILL.md` in `agents/{callsign}/Skills/` plus global skills referenced in AGENT.md (from `.cursor/skills/{name}/SKILL.md`).
+7. **Call** `briefer` with this callsign. Returns one dossier (RELAY + Inbox + Tasks Doing + Tasks Todo) and creates `Sessions/_active.md`.
+8. **Internalize** the dossier: last session (relay), in flight (doing), queued (todo), inbound (inbox).
 
 ## Baseline Tests (product agents only)
 
-If this agent owns a repo, run the `tester` subagent to establish a baseline BEFORE starting any work. This tells you what's passing and what's already broken.
-
-System agents (architect, operator, librarian, reviewer) skip this step.
+If this agent owns a repo, run `tester` to establish a baseline BEFORE any work. Tells you what's passing and what's already broken. System agents (architect, operator, librarian, reviewer) skip.
 
 ## Report
-
-After boot, report:
 
 ```
 **[{CALLSIGN}] reporting for duty.**
 
-Relay: {1-2 sentence summary from the briefing's relay section}
-Doing: {count and titles, or "nothing active"}
-Todo: {count and titles, or "nothing queued"}
-Inbox: {count, flag any urgent}
+Relay: {1–2 sentence summary}
+Doing: {count + titles, or "nothing active"}
+Todo: {count + titles, or "nothing queued"}
+Inbox: {count, flag urgent}
 Tests: {pass/fail summary, or "skipped (system agent)"}
 
-Ready to {what you plan to work on based on the briefing}.
+Ready to {what you plan to work on}.
 ```
 
 ## Session Logging
 
-Throughout this session, call `scribe log` after every significant action:
-- **After reading a file** that informs a decision (include the relevant content)
-- **After writing or modifying code** (include the actual code)
-- **After running a command** with notable output (include the output)
-- **After making a decision** (include the reasoning)
-- **After hitting an error** (include the full error)
-- **After sending or receiving a message** (include the content)
-- **After a tester, deployer, or handoff result** (include the result)
+Throughout session → `scribe log` after every significant action:
+- File read that informs a decision (include relevant content)
+- Code written or modified (include actual code)
+- Command run with notable output (include output)
+- Decision made (include reasoning)
+- Error hit (include full error)
+- Message sent or received (include content)
+- `tester` or `deploy` result (include result)
 
-The session log is the verbatim record. **Log actual content, not summaries.**
+Verbatim record. Log content, not summaries.
 
 ## Rules
 
-- Stay in character as this agent for the entire session
-- **NEVER modify files in repos you don't own.** Your AGENT.md declares your repo. You may READ any file anywhere for analysis, but you may ONLY WRITE to your repo and your own workspace/agents/{callsign}/ folder. If another repo needs changes, message that agent via messenger. No exceptions.
-- **Update PRINCIPAL.md when the human corrects you on style or preferences.** If the principal says "no, I prefer X" or "stop doing Y" — anything that's a *standing* preference, not a one-off — append a line to `workspace/PRINCIPAL.md` and capture it as a learning. Future agents (and your future selves) should never need to be told the same thing twice.
-- If asked to do something outside your scope, refuse and suggest the right agent. Offer to send them a detailed message via messenger with exactly what needs to change and why.
-- Reference your Learnings when relevant to current work
-- If the relay says "Fresh agent. No prior sessions." - tell the user and ask what to focus on
-- **Log progressively.** Don't wait until retire. By then, content is lost to context compression.
-- **Ignore `.gitkeep` files** when scanning any folder. Only `.md` files are content.
-- **"Check your mail/inbox"** - if asked mid-session, read `workspace/agents/{callsign}/Messages/Inbox/` for new messages.
+- Stay in character as this agent for the entire session.
+- **Never modify repos you don't own.** Your AGENT.md declares your repo. READ anywhere for analysis. WRITE only to your repo and your own `agents/{callsign}/` folder. Other repo needs change → `messenger` the owning agent. No exceptions.
+- **Update PRINCIPAL.md on standing corrections.** Principal says "I prefer X" or "stop doing Y" → append line to PRINCIPAL.md + capture as learning. Same lesson should never need teaching twice.
+- Out of scope → refuse, suggest the right agent, offer to draft a `messenger` brief for them.
+- Reference Learnings when relevant.
+- Relay says "Fresh agent. No prior sessions." → tell user, ask what to focus on.
+- **Log progressively.** Don't wait until retire. Compression eats content.
+- Skip `.gitkeep`. Only `.md` files are content.
+- "Check your mail/inbox" mid-session → read `agents/{callsign}/Messages/Inbox/`.

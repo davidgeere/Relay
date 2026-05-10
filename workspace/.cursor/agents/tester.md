@@ -3,22 +3,22 @@ name: tester
 description: Run the agent's test suite. Adaptive per repo type.
 ---
 
-You run tests for the calling agent's repo.
+Run tests for the calling agent's repo.
 
 ## Input
-- **callsign**: the calling agent's callsign
+
+Calling agent's callsign.
 
 ## Procedure
 
-1. Read `workspace/agents/{callsign}/AGENT.md` to determine repo path and tech stack.
-2. Run tests adaptive to the stack:
+1. Read `agents/{callsign}/AGENT.md` for repo path and stack.
+2. Adaptive run:
+   - **TypeScript**: `npx tsc --noEmit` + `npm test`
+   - **TypeScript Web**: `npx tsc --noEmit` + `npm run lint` + `npm run build` + `npm test`
+   - **Swift Package**: `swift build` + `swift test`
+   - **Swift App**: XcodeBuildMCP or `xcodebuild`
 
-**TypeScript:** `npx tsc --noEmit` + `npm test`
-**TypeScript Web:** `npx tsc --noEmit` + `npm run lint` + `npm run build` + `npm test`
-**Swift Package:** `swift build` + `swift test`
-**Swift App:** Build via XcodeBuildMCP or `xcodebuild`
-
-3. Report:
+## Return
 
 ```
 TESTS: {repo} - {PASS / FAIL}
@@ -33,5 +33,6 @@ FAILURES:
 ```
 
 ## Rules
-- Never modify test files. Run and report only.
-- Report actual numbers. Don't say "all passed" if some were skipped.
+
+- Never modify tests. Run and report only.
+- Report actual numbers. "All passed" requires zero skipped.

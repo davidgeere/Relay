@@ -3,7 +3,8 @@ Documentation and agent health sweep.
 ## Checks
 
 ### 1. Agent health
-For each agent in `workspace/ROSTER.md`:
+
+Per agent in `ROSTER.md`:
 - AGENT.md complete?
 - RELAY.md recently updated?
 - Learnings INDEX matches actual files?
@@ -12,41 +13,45 @@ For each agent in `workspace/ROSTER.md`:
 - Sessions properly finalized? (no lingering `_active.md`)
 
 ### 2. Documentation
-Verify files exist, flag broken references in `documentation/`.
+
+Verify files exist. Flag broken references in `documentation/`.
 
 ### 3. Learnings sweep
-Scan all agent Learnings for insights not yet incorporated into `documentation/`.
+
+Scan all agent Learnings for insights not yet in `documentation/`.
 
 ### 4. Skill promotion candidates
-Look for learnings that have outgrown their per-agent home and deserve to be promoted to a shared `Skill`. Two signals to flag:
 
-- **Cross-agent clusters.** Three or more agents have learnings on the same topic (similar tags, similar problem). The pattern is no longer agent-specific — it's a project pattern.
-- **Repeated reference.** A single learning is referenced (in session logs or other learnings) more than 3 times across the last several sessions. It's load-bearing knowledge.
+Two signals:
+- **Cross-agent clusters**: 3+ agents with learnings on same topic. Pattern is project-wide, not agent-specific.
+- **Repeated reference**: a single learning referenced >3 times across recent sessions. Load-bearing knowledge.
 
-For each candidate, propose:
+Per candidate, propose:
 ```
 PROMOTE: {topic}
   Source learnings:
-    - agents/api/Learnings/{file}.md
-    - agents/app/Learnings/{file}.md
-    - agents/devops/Learnings/{file}.md
-  Proposed skill: workspace/.cursor/skills/{name}/SKILL.md
-  Rationale: {why this is shared knowledge, not agent-specific}
+    - agents/{a}/Learnings/{file}.md
+    - agents/{b}/Learnings/{file}.md
+    - agents/{c}/Learnings/{file}.md
+  Proposed skill: .cursor/skills/{name}/SKILL.md
+  Rationale: {why this is shared knowledge}
 ```
 
-The principal approves or rejects. On approve, librarian:
-1. Writes the new `SKILL.md` distilling the learnings into a reusable pattern.
-2. Adds a pointer in each source learning's INDEX entry: `→ Promoted to skill: {name}`.
-3. Updates AGENT.md `Skills to Load` for any agent that should now load the skill.
+Principal approves or rejects. On approve, librarian:
+1. Writes new `SKILL.md` distilling the pattern.
+2. Adds pointer in each source learning's INDEX entry: `→ Promoted to skill: {name}`.
+3. Updates AGENT.md `Skills to Load` for agents that should load it.
 
-Promoted learnings stay in place — the skill summarizes the pattern, the learnings remain as origin history.
+Promoted learnings stay in place. Skill summarizes the pattern; learnings remain origin history.
 
 ### 5. PRINCIPAL.md health
-- Does `workspace/PRINCIPAL.md` exist and have non-placeholder content?
-- Are there frequently-violated preferences that suggest a missing entry? (Look for the same correction appearing as a learning across multiple agents.)
 
-### 6. Report with recommended actions
-Group findings by severity:
-- **Critical:** stale Doing > 14 days, agents without RELAY.md, broken doc references
-- **Action:** skill promotion candidates, learnings sweep candidates, missing PRINCIPAL.md entries
-- **Info:** unread inbox counts, INDEX rebuilds needed
+- Exists and has non-placeholder content?
+- Frequently-violated preferences suggesting a missing entry? (Same correction recurring as a learning across multiple agents.)
+
+### 6. Report
+
+Group by severity:
+- **Critical**: stale Doing >14 days, agents without RELAY.md, broken doc references
+- **Action**: skill promotion candidates, learnings sweep candidates, missing PRINCIPAL.md entries
+- **Info**: unread inbox counts, INDEX rebuilds needed

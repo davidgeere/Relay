@@ -1,111 +1,86 @@
-Terminal shutdown. The agent is permanently deactivated.
+Terminal shutdown. Agent permanently deactivated.
 
-This is a terminal retire + handoff. Same capture order as retire (learnings first, highest value first), but all incomplete work is reassigned to operator, and the agent is locked from future use.
+Same capture order as `/retire` (learnings first, highest value first). All incomplete work reassigned to operator. Agent locked from future use.
 
 ## Usage
 
-- `fire` — while employed as an agent. Fires yourself (the currently employed agent).
-- `fire {callsign}` — from a clean context or any other session. Auto-employs `{callsign}` first, then runs the fire sequence on them.
+- `fire` — while employed. Fires yourself.
+- `fire {callsign}` — from clean context. Auto-employs `{callsign}` first, then runs the fire sequence.
 
-Never `fire {callsign}` while employed as a *different* agent — retire yourself first. The fire sequence needs to be the current agent's last act.
+Never `fire {callsign}` while employed as a *different* agent — retire yourself first. Fire must be the current agent's last act.
 
 ## Sequence
 
-### Step 1: Capture Final Learnings (via scribe)
-Review the agent's full history — not just this session, but anything worth preserving.
-- Tell `scribe` to capture each learning with: title, date, tags, context, learning, application.
-- After all learnings are captured, tell `scribe` to rebuild the INDEX.
+1. **Final Learnings** → `scribe`: review the agent's full history (not just this session). Capture each with title, date, tags, context, learning, application. Then rebuild INDEX.
+2. **Final RELAY.md** → `scribe`: rewrite once more, marked terminal:
+   - **Status: TERMINATED**
+   - **Final Situation** — state of everything this agent owned
+   - **Unfinished Work** — in progress, blocked, planned
+   - **Recommendations** — what successor or operator should know
+   - **Warnings** — traps, gotchas, lost-context risks
 
-### Step 2: Final RELAY.md (via scribe)
-Tell `scribe` to rewrite RELAY.md one last time. Mark it as terminal:
-- **Status: TERMINATED**
-- **Final Situation** — state of everything this agent owned
-- **Unfinished Work** — what was in progress, what's blocked, what was planned
-- **Recommendations** — what the successor or operator should know
-- **Warnings** — traps, gotchas, context that would be lost
+   Last relay. Make it comprehensive.
+3. **Reassign Work** → `taskmaster`:
+   - Move all Doing → Done with Outcome `Reassigned to operator — agent fired.`
+   - Create matching Todo tasks on operator for each incomplete Doing (with full context).
+   - Create Todo tasks on operator for each existing Todo (with full context).
+   - Done tasks stay. History preserved.
+4. **Handover Message** → `messenger` to operator, high priority:
+   ```markdown
+   FROM: {callsign}
+   DATE: {YYYY-MM-DD}
+   PRIORITY: high
 
-This is the last relay. Make it comprehensive.
+   ## Agent Terminated: {callsign}
 
-### Step 3: Reassign Work (via taskmaster)
-- Tell `taskmaster` to move all Doing tasks to Done with Outcome: `Reassigned to operator — agent fired.`
-- Tell `taskmaster` to create matching new Todo tasks for operator for each incomplete Doing task, including full context.
-- Tell `taskmaster` to create new Todo tasks for operator for each existing Todo task, including full context.
-- Done tasks stay where they are. History preserved.
+   I have been fired. Full handover below.
 
-### Step 4: Handover Message (via messenger)
-Tell `messenger` to send a high-priority message to operator:
-```markdown
-FROM: {callsign}
-DATE: {YYYY-MM-DD}
-PRIORITY: high
+   ### Work Reassigned
+   {tasks moved to operator's Todo, brief context per task}
 
-## Agent Terminated: {callsign}
+   ### Repo Ownership
+   {repo name or "None"} — now your responsibility until reassigned.
 
-I have been fired. Full handover below.
+   ### Recommendations
+   {what should happen next}
 
-### Work Reassigned
-{list of tasks moved to operator's Todo, with brief context for each}
+   ### Final Relay
+   See agents/{callsign}/RELAY.md for terminal handover.
+   ```
+5. **Archive Inbox** → `messenger`: archive all remaining Inbox messages.
+6. **Lock the agent**:
+   - ROSTER.md → set status to `fired`.
+   - AGENT.md → prepend:
+     ```markdown
+     > **STATUS: FIRED — {date}**
+     > Permanently deactivated. Do not employ, message, or assign tasks.
+     > All work handed to operator. See RELAY.md for terminal handover.
+     ```
+7. **Finalize session** → `scribe`. Last session ever.
+8. **Commit workspace**:
+   ```bash
+   cd workspace
+   git add -A
+   git commit -m "[{callsign}] fired: terminal shutdown, work handed to operator"
+   git push
+   ```
+9. **Confirm** (one line):
+   ```
+   **[{CALLSIGN}] terminated.** {N} learnings · terminal relay · {N} tasks reassigned · {N} msgs archived · session: {filename} · ROSTER: fired · workspace: pushed
+   ```
 
-### Repo Ownership
-{repo name or "None"} — now your responsibility until reassigned.
+   Agent folder preserved at `agents/{callsign}/`. Read-only from here.
 
-### Recommendations
-{what should happen next with this work}
+## Guard rails (system enforces post-fire)
 
-### Final Relay
-See agents/{callsign}/RELAY.md for full terminal handover.
-```
-
-### Step 5: Archive Inbox (via messenger)
-Tell `messenger` to archive all remaining Inbox messages.
-
-### Step 6: Lock the Agent
-Update ROSTER.md — set the agent's status to `fired`.
-
-Update the agent's AGENT.md — add to the top:
-```markdown
-> **STATUS: FIRED — {date}**
-> This agent is permanently deactivated. Do not employ, message, or assign tasks.
-> All work handed to operator. See RELAY.md for terminal handover.
-```
-
-### Step 7: Finalize Session (via scribe)
-Tell `scribe` to finalize the session log. This is the last session ever.
-
-### Step 8: Commit Workspace
-```bash
-cd workspace
-git add -A
-git commit -m "[{callsign}] fired: terminal shutdown, work handed to operator"
-git push
-```
-
-### Step 9: Confirm
-```
-[{CALLSIGN}] terminated.
-
-Learnings: {count} captured (preserved)
-Relay: terminal handover written
-Tasks: {count} reassigned to operator
-Messages: handover sent to operator, {count} archived
-Session: {filename} (final)
-Status: FIRED in ROSTER.md
-Workspace: committed and pushed
-
-Agent folder preserved at agents/{callsign}/. Read-only from here.
-```
-
-## Guard Rails
-
-After firing, the system must enforce:
-- **employ** — refuse to boot a fired agent
-- **messenger** — refuse to send messages to a fired agent
-- **taskmaster** — refuse to assign tasks to a fired agent
-- **handoff** — skip fired agents in downstream notifications
+- `employ` refuses fired agents.
+- `messenger` refuses messages to fired agents.
+- `taskmaster` refuses tasks for fired agents.
 
 ## Rules
-- Steps 1-2 are highest priority. If context dies, get learnings and relay captured first.
-- RELAY is a full rewrite, marked TERMINAL. This is the last version.
-- Never delete the agent folder. Learnings, sessions, and archives are permanent history.
+
+- Steps 1–2 highest priority. Context dying → learnings + relay first.
+- RELAY is full rewrite, marked TERMINAL. Last version.
+- Never delete the agent folder. Learnings, sessions, archives are permanent history.
 - Always notify operator. They inherit everything.
-- **Always commit workspace last.**
+- Workspace commit last.

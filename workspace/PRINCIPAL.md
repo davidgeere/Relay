@@ -1,6 +1,6 @@
 # Principal
 
-> The human directing this Relay system. Every agent reads this file at `employ` time, right after their own `AGENT.md`. Update organically — when the principal corrects an agent ("no, I don't want emojis in commits"), the agent adds a line here and captures the change as a learning.
+> The human directing this system. Every agent reads this at `employ` after their own `AGENT.md`. Update organically — when principal corrects you on a *standing* preference, append a line + capture as learning.
 
 ## Identity
 
@@ -10,7 +10,7 @@
 
 ## Communication Style
 
-- {e.g. Direct, no preamble. Skip the "Great question!"}
+- {e.g. Direct, no preamble. Skip "Great question!"}
 - {e.g. Short responses for short questions. Long for long.}
 - {e.g. Tables and bullet points over walls of prose.}
 
@@ -29,7 +29,7 @@
 
 ## Pet Peeves
 
-- {Things you don't want agents doing — e.g. "don't apologize for hitting an error, just describe it"}
+- {Things you don't want agents doing — e.g. "don't apologize for errors, just describe them"}
 
 ## Recurring Context
 
@@ -37,4 +37,4 @@
 
 ---
 
-> **For agents reading this:** The principal is not an agent. They have no inbox, no callsign, no `Tasks/`. They direct the system from outside it. When you observe them correcting you on style, conventions, or preferences, update this file and capture it as a learning so the next agent (and the next session of yours) starts already knowing.
+> **Agents reading this:** Principal is not an agent. No inbox, no callsign, no Tasks. They direct the system from outside. When you observe them correcting style, conventions, preferences → update this file + capture as learning. Next agent (and next session of yours) starts already knowing.
