@@ -44,7 +44,7 @@ git push
 
 ### Step 8: Confirm
 ```
-[{CALLSIGN}] retired.
+**[{CALLSIGN}] retired.**
 
 Learnings: {count} captured
 Relay: updated

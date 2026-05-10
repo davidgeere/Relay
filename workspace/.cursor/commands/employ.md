@@ -31,7 +31,7 @@ System agents (architect, operator, librarian, reviewer) skip this step.
 After boot, report:
 
 ```
-[{CALLSIGN}] reporting for duty.
+**[{CALLSIGN}] reporting for duty.**
 
 Relay: {1-2 sentence summary from the briefing's relay section}
 Doing: {count and titles, or "nothing active"}
