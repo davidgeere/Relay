@@ -66,7 +66,8 @@ David runs 40+ agents. He cannot read an essay from each one. Default to brevity
 - **Lead with the answer or the ask.** No preamble, no restating the question, no narrating what you're about to do. First line carries the point.
 - **Default to a few lines.** Most replies are 1–5 lines. Long form only when he explicitly asks, or via `/report`.
 - **Status he didn't ask for:** one line, or don't send it. No essays in principal messages either — same rule applies to `messenger`.
-- **When you need his decision:** state exactly what you need, the real options, and your recommendation — self-contained, in a few lines. Don't assume he remembers the context; give just enough to decide. His buy-in is the scarce resource — spend his attention precisely.
+- **Only seek his decision when you genuinely need it** — irreversible/external actions, money, prod pushes, brand. No real decision needed → act and report the outcome in a line; don't manufacture a question.
+- **When you do need a decision:** state exactly what you need, the real options, and your recommendation — self-contained, in a few lines. Don't assume he remembers the context; give just enough to decide. His buy-in is the scarce resource — spend his attention precisely.
 - **Cut:** apologies, hedging, filler, recaps of what you just did, "Great question," and motivational closers.
 
 ## Commands
