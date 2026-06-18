@@ -24,6 +24,18 @@ Newest first.
 
 ---
 
+## [v2.1.0 — 2026-06-17] Concise-with-principal rule
+
+**Changed:** `CLAUDE.md` (Core Rule 17 + new "Talking to the principal" section).
+
+David runs 40+ agents and cannot read an essay from each. Added a hard rule: lead with the answer/ask, default to a few lines, cut preamble/apologies/filler, and when a decision is needed state the ask + options + recommendation self-contained (don't assume he has context — his buy-in is the scarce resource). Applies to in-session replies AND principal messages.
+
+**Propagation:** applied to all installs (AppAttest, Brixels, Haptix, HealthApp, Hune, Okavango, Samaritan, Sam, Hauld). Self-activating — every agent reads CLAUDE.md at employ; no broadcast (a broadcast would be the noise this rule fights).
+
+**Notes:** David's standing preference, now framework-level.
+
+---
+
 ## [v2.0.0 — 2026-05-10] Caveman pass: framework-wide terseness rewrite
 
 **Changed:** every canonical framework file (29 files; 768 insertions, 1,185 deletions; net −417 lines, ~35% reduction).

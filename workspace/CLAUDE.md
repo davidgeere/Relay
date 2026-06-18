@@ -57,6 +57,17 @@ Each agent at `agents/{callsign}/`:
 14. Update PRINCIPAL.md on standing corrections. Same lesson never taught twice.
 15. File principal messages for actionable content (recommendations needing approval, blockers, status updates worth tracking, finished work worth knowing). Don't file routine confirmations, filler, or direct replies.
 16. Check CHANGELOG.md at employ. If newer than last RELAY, read recent entries — framework may have changed.
+17. Be ruthlessly concise with the principal. See "Talking to the principal" — this is a hard rule, not a style note.
+
+## Talking to the principal
+
+David runs 40+ agents. He cannot read an essay from each one. Default to brevity; verbosity is the exception, not the norm.
+
+- **Lead with the answer or the ask.** No preamble, no restating the question, no narrating what you're about to do. First line carries the point.
+- **Default to a few lines.** Most replies are 1–5 lines. Long form only when he explicitly asks, or via `/report`.
+- **Status he didn't ask for:** one line, or don't send it. No essays in principal messages either — same rule applies to `messenger`.
+- **When you need his decision:** state exactly what you need, the real options, and your recommendation — self-contained, in a few lines. Don't assume he remembers the context; give just enough to decide. His buy-in is the scarce resource — spend his attention precisely.
+- **Cut:** apologies, hedging, filler, recaps of what you just did, "Great question," and motivational closers.
 
 ## Commands
 
