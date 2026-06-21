@@ -24,6 +24,18 @@ Newest first.
 
 ---
 
+## [v2.2.0 — 2026-06-20] Add /rename command
+
+**Changed:** `.cursor/commands/rename.md` (new), `.cursor/commands/guide.md` (command list).
+
+New lifecycle verb to rename an agent. Two forms: `rename to "{new}"` (self, while employed) and `rename "{old}" to "{new}"` (target, from clean context). The new name is slugified to a callsign; the agent's folder moves and live references (ROSTER, other agents' deps, open Todo/Doing/Inbox) are rewritten. Forward-only: history (Archive, Done, Sessions, Learnings, old RELAY) is left intact, and the old callsign is recorded as a non-reusable tombstone in a ROSTER `## Renames` ledger so stale references stay resolvable.
+
+**Propagation:** Samaritan, Hune, AppAttest, Haptix. Remaining installs (Brixels, Okavango, HealthApp, Hauld, Sam) pending.
+
+**Notes:** Command staging is explicit-paths-only by design (no `git add -A`), per Learning `git-add-all-in-active-workspaces-bundles-other-agents-work`. Zero-touch propagation via symlinking command dirs to canonical is still the standing recommendation; these installs received file copies.
+
+---
+
 ## [v2.1.0 — 2026-06-17] Concise-with-principal rule
 
 **Changed:** `CLAUDE.md` (Core Rule 17 + new "Talking to the principal" section).

@@ -17,12 +17,16 @@ System reference. All commands, subagents, agents, how they fit.
     /employ {callsign}    Boot an agent. You ARE them for the session.
     /recruit {callsign} [purpose]
                           New agent. Interviews for gaps, auto-employs.
+    /rename "{old}" to "{new}"
+                          Rename an agent. Folder + live refs move,
+                          old name tombstoned. History preserved.
     /fire {callsign}      Terminal shutdown of another agent.
 
   In-session (while employed):
     /retire               Shutdown. Capture learnings, relay, tasks, msgs.
     /report               Verbose state-of-session report. Read-only.
     /debrief              Mid-session checkpoint. Save, keep working.
+    /rename to "{new}"    Rename yourself. Continue as the new agent.
     /fire                 Fire yourself. Terminal shutdown of current agent.
 
   System-wide (safe anytime):
