@@ -24,6 +24,18 @@ Newest first.
 
 ---
 
+## [v2.3.0 — 2026-07-01] Role is first-class: callsign = name, role = job
+
+**Changed:** `CLAUDE.md` (new "Callsign and Role" section; System Agents table reframed as roles with default callsigns), `ROSTER.md` (columns: `Callsign | Role | Description | …` — role title split out of the description), `templates/*/AGENT.md` (Role line is a short job title), `.cursor/commands/recruit.md` (asks for role title + one-line description; ROSTER row shape), `.cursor/commands/rename.md` (rename never touches role; confirm line says "still {role}"), `.cursor/commands/guide.md` (role notes).
+
+Expressive callsigns (`moss`, `bramble`) stopped carrying the job the way functional ones (`architect`, `ios`) did. Role is now a crisp, canonical, rename-invariant job title distinct from the callsign; descriptions get their own column. Existing agents' AGENT.md identity blocks convert lazily on next employ; project ROSTERs converted by curator at propagation.
+
+**Propagation:** all 11 installs — Samaritan, Hune, AppAttest, Haptix, Brixels, Okavango, HealthApp, Hauld, plus iCloud: Sam, Emery Calloway, Kaleb-Harrison (iCloud commits local; push best-effort).
+
+**Notes:** same pass delivers `/rename` (v2.2.0) to the 7 installs that still lacked it, closing the pending propagation task. Installs without a workspace `CHANGELOG.md` get one seeded (CLAUDE.md rule 16 references it). Emery Calloway + Kaleb-Harrison were on pre-v2.1.0 `CLAUDE.md`; this pass brings them current.
+
+---
+
 ## [v2.2.0 — 2026-06-20] Add /rename command
 
 **Changed:** `.cursor/commands/rename.md` (new), `.cursor/commands/guide.md` (command list).

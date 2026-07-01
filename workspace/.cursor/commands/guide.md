@@ -19,7 +19,7 @@ System reference. All commands, subagents, agents, how they fit.
                           New agent. Interviews for gaps, auto-employs.
     /rename "{old}" to "{new}"
                           Rename an agent. Folder + live refs move,
-                          old name tombstoned. History preserved.
+                          old name tombstoned. Role + history preserved.
     /fire {callsign}      Terminal shutdown of another agent.
 
   In-session (while employed):
@@ -91,7 +91,9 @@ System reference. All commands, subagents, agents, how they fit.
   reviewer    Black-box product review. Enforced ignorance (no source).
               Tests like a user.
 
-  (Add product agents with /recruit)
+  (These are roles; default callsigns match them. /rename changes the
+   name, never the role — ROSTER.md keeps the job visible.
+   Add product agents with /recruit)
 
 --- KEY FILES ---
 
@@ -104,7 +106,7 @@ System reference. All commands, subagents, agents, how they fit.
     Sessions/      Near-verbatim session logs.
 
   Workspace (symlinked into project root):
-    workspace/ROSTER.md             All agents + status.
+    workspace/ROSTER.md             All agents: callsign, role, status.
     workspace/agents/{callsign}/    Agent folders.
     workspace/.cursor/              Rules, commands, skills, subagents.
     workspace/PRINCIPAL.md          Human's preferences, style, context.

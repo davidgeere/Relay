@@ -16,7 +16,7 @@ Templates: `ts-api`, `ts-web`, `swift-app`, `swift-package` at `templates/`. Opt
 2. **Gather definition**:
    - Known template name as 2nd arg → use that template's AGENT.md as base.
    - Else: treat 2nd arg as purpose statement. Ask only about ambiguous things. Skip questions the purpose answers.
-   - Default questions: Role (one line), Repo/folder (path, for product agents), Dependencies (depends on / depended on by), Skills beyond `project-system`, Security concerns for `guard`.
+   - Default questions: Role (short job title, e.g. "Architect", "iOS Developer") + one-line description, Repo/folder (path, for product agents), Dependencies (depends on / depended on by), Skills beyond `project-system`, Security concerns for `guard`.
    - If answers match an existing template: *"This looks like `ts-api`. Use it as a starting point?"* Proceed either way.
 3. **Create folder structure** at `agents/{callsign}/`:
    ```
@@ -27,7 +27,7 @@ Templates: `ts-api`, `ts-web`, `swift-app`, `swift-package` at `templates/`. Opt
    ```
    Add `.gitkeep` to empty dirs.
 4. **Write AGENT.md** (template shape, lean):
-   - Identity: callsign, role, repo, documentation path
+   - Identity: callsign (the name), role (the job — a short title, survives /rename), repo, documentation path
    - Dependencies: depends on / depended on by
    - Local dev: dev command, URLs (if applicable)
    - Responsibilities: 3–5 concrete things this agent owns
@@ -38,7 +38,7 @@ Templates: `ts-api`, `ts-web`, `swift-app`, `swift-package` at `templates/`. Opt
 5. **Seed**:
    - `RELAY.md`: `Fresh agent. No prior sessions.`
    - `Learnings/INDEX.md`: `No learnings yet.`
-6. **Update ROSTER.md**: add row under System Agents or Product Agents.
+6. **Update ROSTER.md**: add row (`Callsign | Role | Description | …`) under System Agents or Product Agents. Role is the title; the one-line description gets its own cell.
 7. **Notify operator** via `messenger`:
    ```markdown
    FROM: {callsign}
@@ -75,6 +75,7 @@ Don't re-recruit. Just `/employ {callsign}` and tell the agent what to focus on,
 ## Rules
 
 - Callsigns permanent. Fired callsigns can't be reused.
+- Callsign is the name, role is the job. Expressive callsigns (`moss`, `bramble`) are fine — the Role column carries what they do.
 - Purpose statement is enough. Don't over-interview.
 - Templates optional. Agents without a matching template are first-class.
 - Always auto-employ after recruit. User recruited for a reason; hand them an agent ready to go.

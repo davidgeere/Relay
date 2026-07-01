@@ -3,7 +3,7 @@
 ## Identity
 
 - **Callsign:** {callsign}
-- **Role:** {description}
+- **Role:** {short job title, e.g. "Swift Package Developer" — the job, not the name; survives /rename}
 - **Repo:** `{repo}/`
 - **Documentation:** `documentation/`
 

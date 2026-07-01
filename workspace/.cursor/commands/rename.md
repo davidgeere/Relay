@@ -1,4 +1,4 @@
-Rename an agent. Changes its callsign and moves its folder. History and old references stay resolvable via a tombstone.
+Rename an agent. Changes its callsign and moves its folder. History and old references stay resolvable via a tombstone. The role (job title) is untouched — a rename changes the name, never the job.
 
 ## Usage
 
@@ -18,7 +18,7 @@ Rename an agent. Changes its callsign and moves its folder. History and old refe
 ## Sequence (forward-only — never rewrite history)
 
 1. **Move folder** `agents/{old}/` → `agents/{new}/`.
-2. **AGENT.md** (in the moved folder): update the identity callsign `old` → `new`. Prepend one line: `> Renamed from {old} on {YYYY-MM-DD}.`
+2. **AGENT.md** (in the moved folder): update the identity callsign `old` → `new`. Leave the Role line untouched. Prepend one line: `> Renamed from {old} on {YYYY-MM-DD}.`
 3. **ROSTER.md**: change the agent's row callsign `old` → `new`. Under a `## Renames` ledger (create the section if absent), add a row `| {old} | {new} | {YYYY-MM-DD} |`. `{old}` is now a **tombstone** — recognized, never reusable.
 4. **Live cross-refs only** — grep the workspace for the bare token `{old}` and rewrite it where it is a *live* reference:
    - Other agents' `AGENT.md` dependency lists (depends on / depended on by).
@@ -44,12 +44,13 @@ git push
 ## Confirm (one line)
 
 ```
-**[{NEW}] renamed.** was {old} · folder moved · ROSTER + {N} live refs updated · history preserved (tombstone) · operator notified · workspace: pushed
+**[{NEW}] renamed.** was {old} · still {role} · folder moved · ROSTER + {N} live refs updated · history preserved (tombstone) · operator notified · workspace: pushed
 ```
 
 ## Rules
 
 - The slug IS the name. No separate display label — the callsign is the identity everywhere.
+- Rename changes the callsign, never the role. To change an agent's job, employ it and edit AGENT.md + ROSTER deliberately.
 - Forward-only. Never rewrite Archive / Done / Sessions / Learnings / old RELAY — permanent record.
 - Old callsign is a tombstone: never reusable (same permanence as fired callsigns).
 - Collisions refuse. ROSTER is the single source of truth.

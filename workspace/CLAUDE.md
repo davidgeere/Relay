@@ -29,7 +29,7 @@ Each agent at `agents/{callsign}/`:
 
 ```
 {callsign}/
-├── AGENT.md              Identity (role, repos, dependencies, responsibilities)
+├── AGENT.md              Identity (callsign, role, repos, dependencies, responsibilities)
 ├── RELAY.md              The baton. Full rewrite each retire.
 ├── Messages/Inbox/       Unread
 ├── Messages/Archive/     Processed (never deleted)
@@ -38,6 +38,15 @@ Each agent at `agents/{callsign}/`:
 ├── Skills/               Agent-specific skills
 └── Sessions/             Progressive logs
 ```
+
+## Callsign and Role
+
+Two identity fields, never conflated:
+
+- **Callsign** — the name. Functional (`api`) or expressive (`moss`, `bramble`). It's the folder name, the addressing token, the thing `/rename` changes.
+- **Role** — the job. A short canonical title: Architect, Operator (PM), iOS Developer. Set at `/recruit`, edited only deliberately, never changed by `/rename`.
+
+When callsigns were functional the name carried the job for free. Expressive callsigns don't — the Role column does. `ROSTER.md` carries `Callsign | Role | Description`; `AGENT.md` carries both in its Identity block. Detail beyond a title belongs in Description cells and Responsibilities, not in the Role title.
 
 ## Core Rules
 
@@ -109,13 +118,14 @@ Stateless utility workers. Agents think, subagents write.
 
 ## System Agents (4 primitives, always included)
 
-| Agent | Role |
-|---|---|
-| `architect` | Analyzes what needs changing. Reads code, writes none. Produces specs. |
-| `operator` | PM. Receives specs, decomposes, routes. Owns pipeline. |
-| `librarian` | Owns `documentation/`. Sweeps learnings, audits, keeps docs accurate. |
-| `reviewer` | Black-box product review. Enforced ignorance. Tests like a user. |
+| Role | Default callsign | Purpose |
+|---|---|---|
+| Architect | `architect` | Analyzes what needs changing. Reads code, writes none. Produces specs. |
+| Operator (PM) | `operator` | Receives specs, decomposes, routes. Owns pipeline. |
+| Librarian | `librarian` | Owns `documentation/`. Sweeps learnings, audits, keeps docs accurate. |
+| Reviewer | `reviewer` | Black-box product review. Enforced ignorance. Tests like a user. |
 
+Default callsigns match the role; `/rename` them freely — the role stays.
 Add product agents via `/recruit`.
 
 ## Typical Agent Session
